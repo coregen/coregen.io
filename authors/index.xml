@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authors | Coregen</title>
+    <link>https://blog.coregen.io/authors/</link>
+      <atom:link href="https://blog.coregen.io/authors/index.xml" rel="self" type="application/rss+xml" />
+    <description>Authors</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <image>
+      <url>https://blog.coregen.io/img/icon-32.png</url>
+      <title>Authors</title>
+      <link>https://blog.coregen.io/authors/</link>
+    </image>
+    
+    <item>
+      <title></title>
+      <link>https://blog.coregen.io/authors/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/authors/admin/</guid>
+      <description>&lt;p&gt;Hi, my name is Barak Avrahami and I am a software developer in Infinidat. My main interests are Reading, Writing, Linux, Devops, FOSS and Software development.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m currently learning Terraform, Kubernetes, Ansible, Haskell, AWS, Consul, Docker and other interesting subjects related to FOSS and the Cloud.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Molecule | Coregen.io</title>
+    <link>https://blog.coregen.io/tags/molecule/</link>
+      <atom:link href="https://blog.coregen.io/tags/molecule/index.xml" rel="self" type="application/rss+xml" />
+    <description>Molecule</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <title>Molecule</title>
+      <link>https://blog.coregen.io/tags/molecule/</link>
+    </image>
+    
+    <item>
+      <title>Weechat server using Ansible, Terraform and AWS - Part 2</title>
+      <link>https://blog.coregen.io/post/weechat-server-2/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/post/weechat-server-2/</guid>
+      <description>
+
+&lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible, ansible-galaxy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/github/hub&#34; target=&#34;_blank&#34;&gt;hub&lt;/a&gt; (It&amp;rsquo;s not required, but there will be some manual actions required if not installed)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/travis-ci/travis.rb#installation&#34; target=&#34;_blank&#34;&gt;Travis-CI command line tools&lt;/a&gt; - Automating the tests&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/install/&#34; target=&#34;_blank&#34;&gt;Docker&lt;/a&gt; - Will be used by molecule to create containers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;creating-the-role&#34;&gt;Creating the role&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

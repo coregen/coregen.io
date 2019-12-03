@@ -28,15 +28,91 @@
   </url>
   
   <url>
+    <loc>https://blog.coregen.io/tags/ansible/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/aws/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/categories/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/devops/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/docker/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/git/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/github/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/hugo/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/hugodeploy/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/molecule/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/categories/test/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/travisci/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/weechat/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/weechat-server-1/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/weechat-server-2/</loc>
+    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.coregen.io/authors/admin/</loc>
   </url>
   
   <url>
     <loc>https://blog.coregen.io/authors/</loc>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/categories/</loc>
   </url>
   
   <url>
@@ -49,10 +125,6 @@
   
   <url>
     <loc>https://blog.coregen.io/talk/</loc>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/tags/</loc>
   </url>
   
 </urlset>

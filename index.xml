@@ -56,9 +56,9 @@ hugo
     
     <item>
       <title>Weechat server using Ansible, Terraform and AWS - Part 1</title>
-      <link>https://blog.coregen.io/post/weechat-server-1/</link>
+      <link>https://blog.coregen.io/post/weechat-ansible-aws-1/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/post/weechat-server-1/</guid>
+      <guid>https://blog.coregen.io/post/weechat-ansible-aws-1/</guid>
       <description>
 
 &lt;p&gt;During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.&lt;/p&gt;

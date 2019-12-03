@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Github | Coregen.io</title>
+    <title>github | Coregen.io</title>
     <link>https://blog.coregen.io/tags/github/</link>
       <atom:link href="https://blog.coregen.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
-    <description>Github</description>
+    <description>github</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://blog.coregen.io/img/icon-192.png</url>
-      <title>Github</title>
+      <title>github</title>
       <link>https://blog.coregen.io/tags/github/</link>
     </image>
     
@@ -34,9 +34,9 @@ hugo
     
     <item>
       <title>Weechat server using Ansible, Terraform and AWS - Part 1</title>
-      <link>https://blog.coregen.io/post/weechat-server-1/</link>
+      <link>https://blog.coregen.io/post/weechat-ansible-aws-1/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/post/weechat-server-1/</guid>
+      <guid>https://blog.coregen.io/post/weechat-ansible-aws-1/</guid>
       <description>
 
 &lt;p&gt;During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.&lt;/p&gt;

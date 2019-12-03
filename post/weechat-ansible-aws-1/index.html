@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Barak Avrahami">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.
+Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://blog.coregen.io/post/weechat-ansible-aws-1/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://blog.coregen.io/post/weechat-ansible-aws-1/">
+
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Coregen.io">
+  <meta property="og:url" content="https://blog.coregen.io/post/weechat-ansible-aws-1/">
+  <meta property="og:title" content="Weechat server using Ansible, Terraform and AWS - Part 1 | Coregen.io">
+  <meta property="og:description" content="During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.
+Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process."><meta property="og:image" content="https://blog.coregen.io/img/icon-192.png">
+  <meta property="twitter:image" content="https://blog.coregen.io/img/icon-192.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-10-28T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-10-28T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.coregen.io/post/weechat-ansible-aws-1/"
+  },
+  "headline": "Weechat server using Ansible, Terraform and AWS - Part 1",
+  
+  "datePublished": "2019-10-28T00:00:00Z",
+  "dateModified": "2019-10-28T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Barak Avrahami"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Coregen.io",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.coregen.io/img/icon-512.png"
+    }
+  },
+  "description": "During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.\nUsing weechat this way led me to deploying this IRC \u0026ldquo;stack\u0026rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Weechat server using Ansible, Terraform and AWS - Part 1 | Coregen.io</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Coregen.io</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Weechat server using Ansible, Terraform and AWS - Part 1</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 28, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/test/">Test</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+<p>During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.</p>
+
+<p>Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS).<br/>
+After deploying weechat and nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process.</p>
+
+<p>The purpose of this article is to give an overview of creating, testing and deploying Ansible configurations, using weechat as an example.</p>
+
+<h2 id="goals">Goals</h2>
+
+<p>Our goals are as following:</p>
+
+<ul>
+<li>An ansible role that will deploy Weechat, Nginx and GlowingBear to a specific linux user</li>
+<li>We should be able to use this role without disturbing other software running on the server</li>
+<li>This role should be automatically tested using a CI system against 3 different distributions</li>
+<li>We will write Terraform plans to use this role in conjunction with other roles on a t2.micro instance on AWS</li>
+</ul>
+
+<p>This article will be split into 3-4 parts. This first part will be dealing with creating the ansible role.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>The first part will require the following to be available</p>
+
+<ul>
+<li>You should be running Linux or MacOS</li>
+<li><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html" target="_blank">Ansible, ansible-galaxy</a></li>
+<li><a href="https://github.com" target="_blank">Github account</a> - You should have and account</li>
+<li><a href="https://molecule.readthedocs.io/en/stable/installation.html" target="_blank">Molecule</a> - Will be used for testing the ansible role</li>
+</ul>
+
+<h2 id="creating-the-role">Creating the role</h2>
+
+<p>First, we will create an ansible role using molecule</p>
+
+<pre><code class="language-bash">molecule init role -r myircstack
+</code></pre>
+
+<p>This will create the role in the directory you are currently at.</p>
+
+<pre><code class="language-bash">○ → tree
+.
+├── README.md
+├── defaults
+│   └── main.yml
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── molecule
+│   └── default
+│       ├── Dockerfile.j2
+│       ├── INSTALL.rst
+│       ├── molecule.yml
+│       ├── playbook.yml
+│       └── tests
+│           └── test_default.py
+├── tasks
+│   └── main.yml
+└── vars
+    └── main.yml
+
+    8 directories, 11 files
+</code></pre>
+
+<p>The initial file structure will include a <strong>molecule</strong> directory which molecule will use to create docker containers to test the role we write. we will be editing the files there soon.</p>
+
+<p>For ansible to install weechat-headless, which will allow us to run weechat as a <a href="https://en.wikipedia.org/wiki/Daemon_(computing)" target="_blank">daemon</a>, we need to  make sure we are installing the latest weechat version that supports it (minimum 2.1). we will use debian for our host.</p>
+
+<h2 id="package-iinstallation">Package Iinstallation</h2>
+
+<p>Following the <a href="https://weechat.org/download/debian/" target="_blank">weechat installationg instructions</a> for debian, we can start writing our playbook.</p>
+
+<p>Inside <em>tasks/</em> we will create the file:
+<em>tasks/setup-debian9.yml</em></p>
+
+<pre><code class="language-yaml">---
+- name: Update and install debian packages
+  apt:
+    update_cache: true  # will update the local debian apt repositories
+    pkg:
+      - nginx  # we will use nginx to servce glowingbear (more about this soon)
+      - openssl
+      - git
+      # weechat dependencies / will be used to add deb repos
+      - dirmgr
+      - gpg-agent
+      - apt-transport-https
+
+- name: Add weechat keys
+  apt_key:
+    keyserver: hkps://keys.openpgp.org
+    id: 11E9DE8848F2B65222AA75B8D1820DB22A11534E
+
+- name: Add weechat repository
+  apt_repository:
+    repo: deb https://weechat.org/debian stretch main
+    state: present
+
+- name: Add weechat src repository
+  apt_repository:
+    repo: deb-src https://weechat.org/debian stretch main
+    state: present
+
+- name: Update and install weechat
+  apt:
+    update_cache: true
+    pkg:
+      - weechat
+      - weechat-plugins
+      - weechat-python
+      - weechat-perl
+      - weechat-headless
+</code></pre>
+
+<p>This task is specific to debian 9 (stretch) and will be tested as such, it&rsquo;s also worth noting that
+we are adding an external repository (<a href="https://weechat.org/debian" target="_blank">https://weechat.org/debian</a>).</p>
+
+<p>This means that in addition to depending on debian repositories we are depending on a private weechat repository which is not ideal. We will addres this in the next chapters.</p>
+
+<h2 id="system-configuration">System Configuration</h2>
+
+<p>For weechat-headless to run successfuly (and hopefully in a way that doesnt create vulnerabilities) we are going to configure the
+linux environment. There are many ways to do this, some more secure than others.</p>
+
+<p>We will begin with generic configurations. First, lets create some variables:
+<em>vars/main.yaml</em></p>
+
+<pre><code class="language-yaml">---
+weechat_username: &quot;weechat&quot;
+weechat_home: &quot;/home/{{ weechat_username }}&quot;
+weechat_config_dir: &quot;{{ weechat_home }}/.weechat&quot;
+weechat_creds_dir: &quot;{{ weechat_config_dir }}/ssl&quot;
+weechat_relay_cert: &quot;{{ weechat_creds_dir }}/weechat.pem&quot;
+weechat_relay_public_cert: &quot;{{ weechat_creds_dir }}/relay.pem&quot;
+weechat_relay_key: &quot;{{ weechat_creds_dir }}/relay.key&quot;
+weechat_relay_password: &quot;defaultpassword&quot;
+nginx_server_url: &quot;localhost&quot;
+nginx_server_ssl_cert_dir: &quot;/var/creds&quot;
+glowingbear_path: /var/www/glowingbear
+</code></pre>
+
+<p>These variables will allow us some flexability when writing our playbook, including having custom relay certification and linux username</p>
+
+<p><em>tasks/environment.yaml</em></p>
+
+<pre><code class="language-yaml">---
+- name: Create weechat user
+  user:
+    name: &quot;{{ weechat_username }}&quot;
+    shell: /bin/bash
+    create_home: true
+    home: &quot;{{ weechat_home }}&quot;
+
+- name: Make sure ssl creds dir exists
+  file:
+    path: &quot;{{ nginx_server_ssl_cert_dir }}&quot;
+    state: directory
+    mode: '0700'
+
+- name: Make sure systemd units directory exists
+  file:
+    owner: root
+    path: /usr/lib/systemd/system
+    state: directory
+    mode: '0755'
+
+- name: Make sure weechat config directory exists
+  file:
+    path: &quot;{{ weechat_config_dir_path }}&quot;
+    state: directory
+    mode: '0755'
+    owner: &quot;{{ weechat_username }}&quot;
+
+- name: Make sure weechat creds directory exists
+  file:
+    path: &quot;{{ relay_creds_dir }}&quot;
+    state: directory
+    mode: '0700'
+    owner: &quot;{{ weechat_username }}&quot;
+
+</code></pre>
+
+<h2 id="templates">Templates</h2>
+
+<p>At this step will create 3 templates, for nginx, weechat relay, and the weechat service.</p>
+
+<p>Lets start with the service:</p>
+
+<p>As you can see, I have decided to use the weechat user to run this service, this decision
+was made primarily due to the fact that weechat by default allows command executions, and running this process as root is just asking for it&hellip;</p>
+
+<p><em>templates/weechat.service.j2</em></p>
+
+<pre><code class="language-service">[Unit]
+Description=A headless WeeChat client and relay service 
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/weechat-headless --daemon
+User={{ weechat_username }}
+
+[Install]
+WantedBy=default.target
+</code></pre>
+
+<p>I have opted to inserting the password directly into the template, there are several other options
+including <a href="https://github.com/weechat/weechat/issues/388" target="_blank">using environment variables</a></p>
+
+<p>It&rsquo;s possible to add the environmental variables inside a file and adding <em>EnvironmentFile=/path/to/file</em> under Service in the systemd unit file</p>
+
+<p><em>templates/relay.conf.j2</em></p>
+
+<pre><code class="language-cfg">#
+# weechat -- relay.conf
+#
+# WARNING: It is NOT recommended to edit this file by hand,
+# especially if WeeChat is running.
+#
+# Use /set or similar command to change settings in WeeChat.
+#
+# For more info, see: https://weechat.org/doc/quickstart
+#
+
+[look]
+auto_open_buffer = on
+raw_messages = 256
+
+[color]
+client = cyan
+status_active = lightblue
+status_auth_failed = lightred
+status_connecting = yellow
+status_disconnected = lightred
+status_waiting_auth = brown
+text = default
+text_bg = default
+text_selected = white
+
+[network]
+allow_empty_password = off
+allowed_ips = &quot;&quot;
+bind_address = &quot;&quot;
+clients_purge_delay = 0
+compression_level = 6
+ipv6 = on
+max_clients = 5
+password = &quot;{{ weechat_relay_password }}&quot;
+ssl_cert_key = &quot;{{ weechat_relay_cert }}&quot;
+ssl_priorities = &quot;NORMAL:-VERS-SSL3.0&quot;
+totp_secret = &quot;&quot;
+totp_window = 0
+websocket_allowed_origins = &quot;&quot;
+
+[irc]
+backlog_max_minutes = 1440
+backlog_max_number = 256
+backlog_since_last_disconnect = on
+backlog_since_last_message = off
+backlog_tags = &quot;irc_privmsg&quot;
+backlog_time_format = &quot;[%H:%M] &quot;
+
+[weechat]
+commands = &quot;&quot;
+
+[port]
+ipv4.ipv6.weechat = 9001
+
+[path]
+
+</code></pre>
+
+<p>There are two things to note about the the Nginx config</p>
+
+<ul>
+<li><strong>We are not using SSL to secure the server (The plan is to use AWS Cloudfront)</strong><br/></li>
+<li><strong>We bound GlowingBear to the nginx server root. (It&rsquo;s a <a href="https://github.com/glowing-bear/glowing-bear" target="_blank">weechat frontend</a>)</strong></li>
+</ul>
+
+<p>More about this in later chapters</p>
+
+<p><em>templates/glowingbear.j2</em></p>
+
+<pre><code class="language-yaml">map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+
+# Make sure this upstream matches your configuration in weechat!
+upstream weechat {
+    server [::1]:9001;
+}
+
+server {
+  listen 80;
+  server_name {{ nginx_server_url }};
+
+
+  location /weechat {
+      proxy_pass https://weechat;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection &quot;upgrade&quot;;
+      proxy_ssl_trusted_certificate {{ weechat_relay_cert }};
+      proxy_ssl_verify off;
+      proxy_read_timeout 4h;
+  }
+
+  location / {
+    root {{ glowingbear_path }};
+  }
+}
+</code></pre>
+
+<h2 id="weechat-configuration">Weechat Configuration</h2>
+
+<p>At this point we have everything we need as far as directory creation.</p>
+
+<p>Now we will create the SSL certificate that will be used by the Weechat Relay.
+Weechat requires we concatenate both certificates and mention the concatenated files&rsquo; contents (cert before key)
+in relay.conf.</p>
+
+<p><em>tasks/weechat.yaml</em></p>
+
+<pre><code class="language-yaml">---
+- name: Create weechat key
+  shell: &gt;
+    openssl req -x509 -nodes -newkey rsa:4096 -sha256 -keyout {{ weechat_relay_key }}
+    -out {{ weechat_relay_public_cert }} -days 365 -subj '/CN=weechat relay/'
+
+- name: Concatenate public cert and key into weechat relay cert
+  shell: &gt;
+    cat {{ weechat_relay_public_cert }} {{ weechat_relay_key }} &gt; {{ weechat_relay_cert }}
+
+# Create the weechat service unit file
+- name: Template weechat.service
+  template:
+    src: weechat.service.j2
+    dest: /usr/lib/systemd/system/weechat.service
+    owner: root
+    mode: '0755'
+
+- name: Template weechat relay config
+  template:
+    src: relay.conf.j2
+    dest: &quot;{{ weechat_config_dir }}/relay.conf&quot;
+    owner: weechat
+    mode: '0755'
+
+- name: Activate weechat service
+  systemd:
+    name: weechat
+    enabled: true
+    state: started
+</code></pre>
+
+<h2 id="frontend">Frontend</h2>
+
+<p>Before enabling and starting Nginx, we will clone GlowingBear and make sure the Nginx ste configuration is templated and linked.</p>
+
+<pre><code class="language-yaml">---
+- name: Download glowing bear
+  git:
+    repo: 'https://github.com/glowing-bear/glowing-bear.git'
+    version: master
+    dest: /var/www/glowingbear
+
+- name: Template nginx site
+  template:
+    src: glowingbear.j2
+    dest: /etc/nginx/sites-available/glowingbear
+    owner: root
+    mode: '0755'
+
+- name: Link glowingbear frontend to sites-enabled
+  file:
+    src: /etc/nginx/sites-available/glowingbear
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+</code></pre>
+
+<h2 id="nginx-configuration">Nginx Configuration</h2>
+
+<p>Here we simply enable and start the Nginx service<br/></p>
+
+<p><em>tasks/nginx.yml</em></p>
+
+<pre><code class="language-yaml">---
+- name: Activate nginx service
+  systemd:
+    name: nginx
+    enabled: true
+    state: started
+
+</code></pre>
+
+<h2 id="finalizing-tasks">Finalizing Tasks</h2>
+
+<p>To bring all the configuration together, we will use the main.yml file that will be read and processed by ansible during playbook execution.<br/>
+Notice that we are passing a conditional that will execute package installation only if we are using Debian 9. More distribution can be supported by adding tasks corresponding to their name/version.</p>
+
+<p><em>tasks/main.yml</em></p>
+
+<pre><code class="language-yaml">
+- include_tasks: environment.yml
+  when: weechat_config_repo
+
+- include_tasks: setup-debian9.yml
+  when: ansible_os_family == 'Debian' and ansible_distribution_version == '9'
+
+- include_tasks: weechat.yml
+  when: weechat_config_repo
+
+- include_tasks: glowingbear.yml
+  when: weechat_frontend
+
+- include_tasks: nginx.yml
+  when: nginx_with_reverse_proxy
+
+</code></pre>
+
+<h2 id="role-metadata">Role Metadata</h2>
+
+<p>Metadata should be added to provide more information about the role, it&rsquo;s author, role name, license and supported platforms</p>
+
+<p><em>meta/main.yaml</em></p>
+
+<pre><code>galaxy_info:
+  author: Barak Avrahami
+  description: This role is used to install Weechat, and use it with nginx to serve GlowingBear
+  company: Coregen
+  role_name: ircstack
+
+  license: MIT
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: debian
+    versions:
+    - '9'
+
+  galaxy_tags: [irc, weechat, nginx, glowingbear]
+    # List tags for your role here, one per line. A tag is a keyword that describes
+    # and categorizes the role. Users find roles by searching for tags. Be sure to
+    # remove the '[]' above, if you add tags to this list.
+    #
+    # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
+    #       Maximum 20 tags per role.
+
+dependencies: []
+  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
+  # if you add dependencies to this list.
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Now we have a role that will install and configure Weechat, Nginx and GlowingBear but you might be asking <em>&ldquo;oh, well thats excellent, but how do I know it works?&rdquo;</em>
+Well.. you can add it to a playbook and execute this role, it will <del>probably</del> hopefully work. but testing this role will make changing anything considerably easier.</p>
+
+<p><strong>I tested this code and it does work on Debian Stretch</strong></p>
+
+<p><img src="http://mikbe.com/images/simpsons-testing.gif" alt="" /></p>
+
+<p>Stay tuned for the the next part, in which we will configure Molecule and Docker to test this role on different systems</p>
+
+<p>I hope you enjoyed this article, leave a comment if you feel like I missed something or just to say Hi!</p>
+
+    </div>
+
+    
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/devops/">Devops</a>
+  
+  <a class="badge badge-light" href="/tags/ansible/">Ansible</a>
+  
+  <a class="badge badge-light" href="/tags/github/">Github</a>
+  
+  <a class="badge badge-light" href="/tags/git/">Git</a>
+  
+  <a class="badge badge-light" href="/tags/weechat/">Weechat</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://blog.coregen.io/post/weechat-ansible-aws-1/&amp;text=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://blog.coregen.io/post/weechat-ansible-aws-1/&amp;t=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201&amp;body=https://blog.coregen.io/post/weechat-ansible-aws-1/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://blog.coregen.io/post/weechat-ansible-aws-1/&amp;title=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201%20https://blog.coregen.io/post/weechat-ansible-aws-1/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://blog.coregen.io/post/weechat-ansible-aws-1/&amp;title=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_hu2ba0d4cd29a156b7b687f7c331ec0ffc_511810_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://blog.coregen.io/">Barak Avrahami</a></h5>
+      <h6 class="card-subtitle">Software Developer and Hardware Specialist</h6>
+      <p class="card-text">My main interests are Linux, Software Development and DevOps</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/barakavr" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/andecy64" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/weechat-server-2/">Weechat server using Ansible, Terraform and AWS - Part 2</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.2456a0ce10b7665be94de67852f9a372.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

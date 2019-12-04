@@ -506,7 +506,7 @@ Well.. you can add it to a playbook and execute this role, it will &lt;del&gt;pr
 
 &lt;p&gt;&lt;strong&gt;I tested this code and it does work on Debian Stretch&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://mikbe.com/images/simpsons-testing.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.coregen.io/img/simpsons-testing.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Stay tuned for the the next part, in which we will configure Molecule and Docker to test this role on different systems&lt;/p&gt;
 

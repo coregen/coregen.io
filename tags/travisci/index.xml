@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>travisci | Coregen.io</title>
+    <title>TravisCI | Coregen.io</title>
     <link>https://blog.coregen.io/tags/travisci/</link>
       <atom:link href="https://blog.coregen.io/tags/travisci/index.xml" rel="self" type="application/rss+xml" />
-    <description>travisci</description>
+    <description>TravisCI</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://blog.coregen.io/img/icon-192.png</url>
-      <title>travisci</title>
+      <title>TravisCI</title>
       <link>https://blog.coregen.io/tags/travisci/</link>
     </image>
     
@@ -34,9 +34,9 @@ hugo
     
     <item>
       <title>Weechat server using Ansible, Terraform and AWS - Part 2</title>
-      <link>https://blog.coregen.io/post/weechat-server-2/</link>
+      <link>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/post/weechat-server-2/</guid>
+      <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</guid>
       <description>
 
 &lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;

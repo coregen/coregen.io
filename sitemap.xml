@@ -3,7 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.coregen.io/categories/</loc>
+    <lastmod>2019-11-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.coregen.io/</loc>
+    <lastmod>2019-11-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/categories/devops/</loc>
     <lastmod>2019-11-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -34,11 +44,6 @@
   
   <url>
     <loc>https://blog.coregen.io/tags/aws/</loc>
-    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/categories/</loc>
     <lastmod>2019-10-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -98,12 +103,7 @@
   </url>
   
   <url>
-    <loc>https://blog.coregen.io/post/weechat-ansible-aws-1/</loc>
-    <lastmod>2019-10-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/post/weechat-server-2/</loc>
+    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</loc>
     <lastmod>2019-10-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -125,6 +125,10 @@
   
   <url>
     <loc>https://blog.coregen.io/talk/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</loc>
   </url>
   
 </urlset>

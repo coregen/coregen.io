@@ -55,10 +55,33 @@ hugo
     </item>
     
     <item>
-      <title>Weechat server using Ansible, Terraform and AWS - Part 1</title>
-      <link>https://blog.coregen.io/post/weechat-ansible-aws-1/</link>
+      <title>Weechat server using Ansible, Terraform and AWS - Part 2</title>
+      <link>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/post/weechat-ansible-aws-1/</guid>
+      <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</guid>
+      <description>
+
+&lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible, ansible-galaxy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/github/hub&#34; target=&#34;_blank&#34;&gt;hub&lt;/a&gt; (It&amp;rsquo;s not required, but there will be some manual actions required if not installed)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/travis-ci/travis.rb#installation&#34; target=&#34;_blank&#34;&gt;Travis-CI command line tools&lt;/a&gt; - Automating the tests&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/install/&#34; target=&#34;_blank&#34;&gt;Docker&lt;/a&gt; - Will be used by molecule to create containers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;creating-the-role&#34;&gt;Creating the role&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Weechat server using Ansible, Terraform and AWS - Part 1</title>
+      <link>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</guid>
       <description>
 
 &lt;p&gt;During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.&lt;/p&gt;
@@ -466,7 +489,7 @@ Notice that we are passing a conditional that will execute package installation 
 
 &lt;p&gt;&lt;em&gt;tasks/main.yml&lt;/em&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 - include_tasks: environment.yml
   when: weechat_config_repo
 
@@ -530,29 +553,6 @@ Well.. you can add it to a playbook and execute this role, it will &lt;del&gt;pr
 &lt;p&gt;Stay tuned for the the next part, in which we will configure Molecule and Docker to test this role on different systems&lt;/p&gt;
 
 &lt;p&gt;I hope you enjoyed this article, leave a comment if you feel like I missed something or just to say Hi!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Weechat server using Ansible, Terraform and AWS - Part 2</title>
-      <link>https://blog.coregen.io/post/weechat-server-2/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/post/weechat-server-2/</guid>
-      <description>
-
-&lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible, ansible-galaxy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/github/hub&#34; target=&#34;_blank&#34;&gt;hub&lt;/a&gt; (It&amp;rsquo;s not required, but there will be some manual actions required if not installed)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/travis-ci/travis.rb#installation&#34; target=&#34;_blank&#34;&gt;Travis-CI command line tools&lt;/a&gt; - Automating the tests&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/install/&#34; target=&#34;_blank&#34;&gt;Docker&lt;/a&gt; - Will be used by molecule to create containers&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;creating-the-role&#34;&gt;Creating the role&lt;/h2&gt;
 </description>
     </item>
     

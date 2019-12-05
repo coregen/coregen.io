@@ -45,9 +45,9 @@ After deploying weechat and &lt;a href=&#34;https://www.nginx.com/resources/glos
 
 &lt;ul&gt;
 &lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible, ansible-galaxy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible &amp;gt;= 2.8.5&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule &amp;gt;= 2.22&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;creating-the-role&#34;&gt;Creating the role&lt;/h2&gt;

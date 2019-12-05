@@ -5,7 +5,7 @@
     <link>https://blog.coregen.io/tags/</link>
       <atom:link href="https://blog.coregen.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 04 Dec 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://blog.coregen.io/img/icon-192.png</url>
       <title>Tags</title>
@@ -13,10 +13,42 @@
     </image>
     
     <item>
+      <title>[Weechat](https://weechat.org/)</title>
+      <link>https://blog.coregen.io/tags/weechathttps/weechat.org/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/tags/weechathttps/weechat.org/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Ansible</title>
       <link>https://blog.coregen.io/tags/ansible/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Devops</title>
+      <link>https://blog.coregen.io/tags/devops/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://blog.coregen.io/tags/git/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://blog.coregen.io/tags/github/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/tags/github/</guid>
       <description></description>
     </item>
     
@@ -29,34 +61,10 @@
     </item>
     
     <item>
-      <title>Devops</title>
-      <link>https://blog.coregen.io/tags/devops/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/devops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Docker</title>
       <link>https://blog.coregen.io/tags/docker/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Git</title>
-      <link>https://blog.coregen.io/tags/git/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Github</title>
-      <link>https://blog.coregen.io/tags/github/</link>
-      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/github/</guid>
       <description></description>
     </item>
     
@@ -77,7 +85,7 @@
     </item>
     
     <item>
-      <title>TravisCI</title>
+      <title>travisci</title>
       <link>https://blog.coregen.io/tags/travisci/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/tags/travisci/</guid>

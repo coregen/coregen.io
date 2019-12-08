@@ -89,6 +89,42 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154157319-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-154157319-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -319,11 +355,10 @@
   
   
   <div>
-    <h2><a href="/post/weechat-ansible-aws-part-1/">Weechat server using Ansible, Terraform and AWS - Part 1</a></h2>
+    <h2><a href="/post/weechat-ansible-aws-part-1/">Setting up Weechat relay server - Part 1</a></h2>
     <div class="article-style">
       
-      During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.
-Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and Nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process.
+      Setting up Weechat relay using Ansible, Nginx, GlowingBear and Molecule
       
     </div>
   </div>
@@ -423,6 +458,8 @@ Thanks for reading this post, more will be coming soon!
     
 
     
+    
+    <script id="dsq-count-scr" src="https://coregen.disqus.com/count.js" async></script>
     
 
     

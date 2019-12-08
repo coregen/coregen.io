@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>Weechat server using Ansible, Terraform and AWS - Part 1</title>
+      <title>Setting up Weechat relay server - Part 1</title>
       <link>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</guid>
@@ -31,13 +31,13 @@ After deploying weechat and &lt;a href=&#34;https://www.nginx.com/resources/glos
 &lt;p&gt;Our goals are as following:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;An ansible role that will deploy &lt;a href=&#34;https://weechat.org/&#34; target=&#34;_blank&#34;&gt;Weechat&lt;/a&gt;, &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt; and &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34; target=&#34;_blank&#34;&gt;GlowingBear&lt;/a&gt; to a specific linux user&lt;/li&gt;
+&lt;li&gt;An Ansible role that will deploy &lt;a href=&#34;https://weechat.org/&#34; target=&#34;_blank&#34;&gt;Weechat&lt;/a&gt;, &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt; and &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34; target=&#34;_blank&#34;&gt;GlowingBear&lt;/a&gt; to a specific linux user&lt;/li&gt;
 &lt;li&gt;We should be able to use this role without disturbing other software running on the server&lt;/li&gt;
 &lt;li&gt;This role should be automatically tested using a CI system against 3 different distributions&lt;/li&gt;
 &lt;li&gt;We will write &lt;a href=&#34;https://www.terraform.io/intro/index.html&#34; target=&#34;_blank&#34;&gt;Terraform&lt;/a&gt; plans to use this role in conjunction with other roles on a t2.micro instance on AWS&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;This article will be split into 3-4 parts. This first part will be dealing with creating the ansible role.&lt;/p&gt;
+&lt;p&gt;This article will be split into 3-4 parts. This first part will be dealing with creating the Ansible role.&lt;/p&gt;
 
 &lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
 
@@ -46,13 +46,12 @@ After deploying weechat and &lt;a href=&#34;https://www.nginx.com/resources/glos
 &lt;ul&gt;
 &lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible &amp;gt;= 2.8.5&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule &amp;gt;= 2.22&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule &amp;gt;= 2.22&lt;/a&gt; - Will be used for testing the Ansible role&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;creating-the-role&#34;&gt;Creating the role&lt;/h2&gt;
 
-&lt;p&gt;First, we will create an ansible role using molecule&lt;/p&gt;
+&lt;p&gt;First, we will create an Ansible role using Molecule&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ansible-galaxy init myircstack
 $ cd myircstack/
@@ -86,15 +85,15 @@ $ molecule init role -r myircstack
     8 directories, 11 files
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The initial file structure will include a &lt;strong&gt;molecule&lt;/strong&gt; directory which molecule will use to create docker containers to test the role we write. we will be editing the files there soon.&lt;/p&gt;
+&lt;p&gt;The initial file structure will include a &lt;strong&gt;Molecule&lt;/strong&gt; directory which Molecule will use to create docker containers to test the role we write. we will be editing the files there soon.&lt;/p&gt;
 
-&lt;p&gt;For ansible to install weechat-headless, which will allow us to run weechat as a &lt;a href=&#34;https://en.wikipedia.org/wiki/Daemon_(computing)&#34; target=&#34;_blank&#34;&gt;daemon&lt;/a&gt;, we need to  make sure we are installing the latest weechat version that supports it (minimum 2.1). we will use debian for our host.&lt;/p&gt;
+&lt;p&gt;For Ansible to install weechat-headless, which will allow us to run Weechat as a &lt;a href=&#34;https://en.wikipedia.org/wiki/Daemon_(computing)&#34; target=&#34;_blank&#34;&gt;daemon&lt;/a&gt;, we need to  make sure we are installing the latest Weechat version that supports it (minimum 2.1). we will use debian for our host.&lt;/p&gt;
 
 &lt;h2 id=&#34;package-installation&#34;&gt;Package Installation&lt;/h2&gt;
 
-&lt;p&gt;Following the &lt;a href=&#34;https://weechat.org/download/debian/&#34; target=&#34;_blank&#34;&gt;weechat installationg instructions&lt;/a&gt; for debian, we can start writing our playbook.&lt;/p&gt;
+&lt;p&gt;Following the &lt;a href=&#34;https://weechat.org/download/debian/&#34; target=&#34;_blank&#34;&gt;Weechat installationg instructions&lt;/a&gt; for debian, we can start writing our playbook.&lt;/p&gt;
 
-&lt;p&gt;Inside &lt;em&gt;tasks/&lt;/em&gt; we will create the file:&lt;/p&gt;
+&lt;p&gt;Inside &lt;em&gt;tasks/&lt;/em&gt; we should create the file:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;tasks/setup-debian9.yml&lt;/em&gt;&lt;/p&gt;
 
@@ -140,7 +139,7 @@ $ molecule init role -r myircstack
 &lt;p&gt;This task is specific to debian 9 (stretch) and will be tested as such, it&amp;rsquo;s also worth noting that
 we are adding an external repository (&lt;a href=&#34;https://weechat.org/debian&#34; target=&#34;_blank&#34;&gt;https://weechat.org/debian&lt;/a&gt;).&lt;/p&gt;
 
-&lt;p&gt;This means that in addition to depending on debian repositories we are depending on a private weechat repository which is not ideal. We will addres this in the next chapters.&lt;/p&gt;
+&lt;p&gt;This means that in addition to depending on debian repositories we are depending on a private Weechat repository which is not ideal. We will addres this in the next chapters.&lt;/p&gt;
 
 &lt;h2 id=&#34;system-configuration&#34;&gt;System Configuration&lt;/h2&gt;
 
@@ -166,7 +165,7 @@ nginx_server_ssl_cert_dir: &amp;quot;/var/creds&amp;quot;
 glowingbear_path: /var/www/glowingbear
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;These variables will allow us some flexability when writing our playbook, including having custom relay certification and linux username&lt;/p&gt;
+&lt;p&gt;These variables allow us some flexability when writing our playbook, including having custom relay certification and linux username&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;tasks/environment.yaml&lt;/em&gt;&lt;/p&gt;
 
@@ -209,12 +208,12 @@ glowingbear_path: /var/www/glowingbear
 
 &lt;h2 id=&#34;templates&#34;&gt;Templates&lt;/h2&gt;
 
-&lt;p&gt;At this step will create 3 templates, for nginx, weechat relay, and the weechat service.&lt;/p&gt;
+&lt;p&gt;At this step will create 3 templates, for nginx, Weechat relay, and the Weechat service.&lt;/p&gt;
 
 &lt;p&gt;Lets start with the service:&lt;/p&gt;
 
-&lt;p&gt;As you can see, I have decided to use the weechat user to run this service, this decision
-was made primarily due to the fact that weechat by default allows command executions via /exec, and running this process as root is just &lt;a href=&#34;https://weechat.org/files/doc/devel/weechat_user.en.html#exec_plugin&#34; target=&#34;_blank&#34;&gt;asking for it&lt;/a&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;As you can see, I have decided to use the Weechat user to run this service, this decision
+was made primarily due to the fact that Weechat by default allows command executions via /exec, and running this process as root is just &lt;a href=&#34;https://weechat.org/files/doc/devel/weechat_user.en.html#exec_plugin&#34; target=&#34;_blank&#34;&gt;asking for it&lt;/a&gt;&amp;hellip;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;templates/weechat.service.j2&lt;/em&gt;&lt;/p&gt;
 
@@ -234,22 +233,11 @@ WantedBy=default.target
 &lt;p&gt;I have opted to inserting the password directly into the template, there are several other options
 including &lt;a href=&#34;https://github.com/weechat/weechat/issues/388&#34; target=&#34;_blank&#34;&gt;using environment variables&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;It&amp;rsquo;s possible to add the environmental variables inside a file and adding &lt;em&gt;EnvironmentFile=/path/to/file&lt;/em&gt; under Service in the systemd unit file&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s possible to add the environment variables inside a file and adding &lt;em&gt;EnvironmentFile=/path/to/file&lt;/em&gt; under Service in the systemd unit file&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;templates/relay.conf.j2&lt;/em&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-cfg&#34;&gt;#
-# weechat -- relay.conf
-#
-# WARNING: It is NOT recommended to edit this file by hand,
-# especially if WeeChat is running.
-#
-# Use /set or similar command to change settings in WeeChat.
-#
-# For more info, see: https://weechat.org/doc/quickstart
-#
-
-[look]
+&lt;pre&gt;&lt;code class=&#34;language-cfg&#34;&gt;[look]
 auto_open_buffer = on
 raw_messages = 256
 
@@ -301,7 +289,7 @@ ipv4.ipv6.weechat = 9001
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;We are not using SSL to secure the server (The plan is to use AWS Cloudfront)&lt;/strong&gt;&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;We bound GlowingBear to the nginx server root. (It&amp;rsquo;s a &lt;a href=&#34;https://github.com/glowing-bear/glowing-bear&#34; target=&#34;_blank&#34;&gt;weechat frontend&lt;/a&gt;)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We added GlowingBear to the nginx server root. (It&amp;rsquo;s a &lt;a href=&#34;https://github.com/glowing-bear/glowing-bear&#34; target=&#34;_blank&#34;&gt;Weechat frontend&lt;/a&gt;)&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;More about this in later chapters&lt;/p&gt;
@@ -314,7 +302,6 @@ ipv4.ipv6.weechat = 9001
 }
 
 
-# Make sure this upstream matches your configuration in weechat!
 upstream weechat {
     server [::1]:9001;
 }
@@ -342,10 +329,10 @@ server {
 
 &lt;h2 id=&#34;weechat-configuration&#34;&gt;Weechat Configuration&lt;/h2&gt;
 
-&lt;p&gt;At this point we have everything we need as far as directory creation.&lt;/p&gt;
+&lt;p&gt;At this point we have everything we need as far as directory creation goes.&lt;/p&gt;
 
-&lt;p&gt;Now we will create the SSL certificate that will be used by the Weechat Relay.
-Weechat requires we concatenate both certificates and mention the concatenated files&amp;rsquo; contents (cert before key)
+&lt;p&gt;Now we create the SSL certificate that will be used by the Weechat Relay.
+Weechat requires we concatenate both certificates and put the concatenated files&amp;rsquo; contents (cert before key)
 in relay.conf.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;tasks/weechat.yaml&lt;/em&gt;&lt;/p&gt;
@@ -384,7 +371,7 @@ in relay.conf.&lt;/p&gt;
 
 &lt;h2 id=&#34;frontend&#34;&gt;Frontend&lt;/h2&gt;
 
-&lt;p&gt;Before enabling and starting Nginx, we will clone GlowingBear and make sure the Nginx ste configuration is templated and linked.&lt;/p&gt;
+&lt;p&gt;Before enabling and starting Nginx clone GlowingBear and make sure the Nginx site configuration is templated and linked.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;tasks/glowingbear.yml&lt;/em&gt;&lt;/p&gt;
 
@@ -426,7 +413,7 @@ in relay.conf.&lt;/p&gt;
 
 &lt;h2 id=&#34;finalizing-tasks&#34;&gt;Finalizing Tasks&lt;/h2&gt;
 
-&lt;p&gt;To bring all the configuration together, we will use the main.yml file that will be read and processed by ansible during playbook execution.&lt;br/&gt;
+&lt;p&gt;To bring all the configuration together, we use the main.yml file that will be read and processed by Ansible during playbook execution.&lt;br/&gt;
 Notice that we are passing a conditional that will execute package installation only if we are using Debian 9. More distribution can be supported by adding tasks corresponding to their name/version.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;tasks/main.yml&lt;/em&gt;&lt;/p&gt;
@@ -469,22 +456,14 @@ Notice that we are passing a conditional that will execute package installation 
     - &#39;9&#39;
 
   galaxy_tags: [irc, weechat, nginx, glowingbear]
-    # List tags for your role here, one per line. A tag is a keyword that describes
-    # and categorizes the role. Users find roles by searching for tags. Be sure to
-    # remove the &#39;[]&#39; above, if you add tags to this list.
-    #
-    # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
-    #       Maximum 20 tags per role.
 
 dependencies: []
-  # List your role dependencies here, one per line. Be sure to remove the &#39;[]&#39; above,
-  # if you add dependencies to this list.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;Now we have a role that will install and configure Weechat, Nginx and GlowingBear but you might be asking &lt;em&gt;&amp;ldquo;oh, well thats excellent, but how do I know it works?&amp;rdquo;&lt;/em&gt;
-Well.. you can add it to a playbook and execute this role, it will &lt;del&gt;probably&lt;/del&gt; hopefully work. but testing this role will make changing anything considerably easier.&lt;/p&gt;
+&lt;p&gt;Now that we have a role that installs and configures Weechat, Nginx and GlowingBear you might be asking &lt;em&gt;&amp;ldquo;oh, well thats excellent, but how do I know it works?&amp;rdquo;&lt;/em&gt;
+Well.. you can add it to a playbook and execute this role, it will &lt;del&gt;probably&lt;/del&gt; hopefully work. But testing this role will make changing anything considerably easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;I tested this code and it does work on Debian Stretch&lt;/strong&gt;&lt;/p&gt;
 

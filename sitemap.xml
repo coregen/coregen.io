@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.coregen.io/tags/weechathttps/weechat.org/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.coregen.io/tags/ansible/</loc>
     <lastmod>2019-12-04T00:00:00+00:00</lastmod>
   </url>
@@ -48,12 +43,17 @@
   </url>
   
   <url>
+    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</loc>
+    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.coregen.io/tags/</loc>
     <lastmod>2019-12-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</loc>
+    <loc>https://blog.coregen.io/tags/weechat/</loc>
     <lastmod>2019-12-04T00:00:00+00:00</lastmod>
   </url>
   

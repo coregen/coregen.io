@@ -28,8 +28,7 @@
   
     
   
-  <meta name="description" content="During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.
-Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and Nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process.">
+  <meta name="description" content="Setting up Weechat relay using Ansible, Nginx, GlowingBear and Molecule">
 
   
   <link rel="alternate" hreflang="en-us" href="https://blog.coregen.io/post/weechat-ansible-aws-part-1/">
@@ -90,6 +89,42 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154157319-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-154157319-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -113,9 +148,8 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
   
   <meta property="og:site_name" content="Coregen.io">
   <meta property="og:url" content="https://blog.coregen.io/post/weechat-ansible-aws-part-1/">
-  <meta property="og:title" content="Weechat server using Ansible, Terraform and AWS - Part 1 | Coregen.io">
-  <meta property="og:description" content="During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.
-Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and Nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process."><meta property="og:image" content="https://blog.coregen.io/img/icon-192.png">
+  <meta property="og:title" content="Setting up Weechat relay server - Part 1 | Coregen.io">
+  <meta property="og:description" content="Setting up Weechat relay using Ansible, Nginx, GlowingBear and Molecule"><meta property="og:image" content="https://blog.coregen.io/img/icon-192.png">
   <meta property="twitter:image" content="https://blog.coregen.io/img/icon-192.png"><meta property="og:locale" content="en-us">
   
     
@@ -149,7 +183,7 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
     "@type": "WebPage",
     "@id": "https://blog.coregen.io/post/weechat-ansible-aws-part-1/"
   },
-  "headline": "Weechat server using Ansible, Terraform and AWS - Part 1",
+  "headline": "Setting up Weechat relay server - Part 1",
   
   "datePublished": "2019-12-04T00:00:00Z",
   "dateModified": "2019-12-04T00:00:00Z",
@@ -167,7 +201,7 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
       "url": "https://blog.coregen.io/img/icon-512.png"
     }
   },
-  "description": "During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using GlowingBear on Nginx to expose a web frontend to Weechat.\nUsing weechat this way led me to deploying this IRC \u0026ldquo;stack\u0026rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS). After deploying weechat and Nginx manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process."
+  "description": "Setting up Weechat relay using Ansible, Nginx, GlowingBear and Molecule"
 }
 </script>
 
@@ -185,7 +219,7 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
 
 
 
-  <title>Weechat server using Ansible, Terraform and AWS - Part 1 | Coregen.io</title>
+  <title>Setting up Weechat relay server - Part 1 | Coregen.io</title>
 
 </head>
 
@@ -354,8 +388,10 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
   
   
 <div class="article-container pt-3">
-  <h1>Weechat server using Ansible, Terraform and AWS - Part 1</h1>
+  <h1>Setting up Weechat relay server - Part 1</h1>
 
+  
+  <p class="page-subtitle">Setting up Weechat relay using Ansible, Nginx, GlowingBear and Molecule</p>
   
 
   
@@ -382,12 +418,15 @@ Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS w
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    9 min read
+    8 min read
   </span>
   
 
   
   
+  
+  <span class="middot-divider"></span>
+  <a href="/post/weechat-ansible-aws-part-1/#disqus_thread"></a>
   
 
   
@@ -436,13 +475,13 @@ After deploying weechat and <a href="https://www.nginx.com/resources/glossary/ng
 <p>Our goals are as following:</p>
 
 <ul>
-<li>An ansible role that will deploy <a href="https://weechat.org/" target="_blank">Weechat</a>, <a href="https://www.nginx.com/resources/glossary/nginx/" target="_blank">Nginx</a> and <a href="https://www.glowing-bear.org/#!/" target="_blank">GlowingBear</a> to a specific linux user</li>
+<li>An Ansible role that will deploy <a href="https://weechat.org/" target="_blank">Weechat</a>, <a href="https://www.nginx.com/resources/glossary/nginx/" target="_blank">Nginx</a> and <a href="https://www.glowing-bear.org/#!/" target="_blank">GlowingBear</a> to a specific linux user</li>
 <li>We should be able to use this role without disturbing other software running on the server</li>
 <li>This role should be automatically tested using a CI system against 3 different distributions</li>
 <li>We will write <a href="https://www.terraform.io/intro/index.html" target="_blank">Terraform</a> plans to use this role in conjunction with other roles on a t2.micro instance on AWS</li>
 </ul>
 
-<p>This article will be split into 3-4 parts. This first part will be dealing with creating the ansible role.</p>
+<p>This article will be split into 3-4 parts. This first part will be dealing with creating the Ansible role.</p>
 
 <h2 id="requirements">Requirements</h2>
 
@@ -451,13 +490,12 @@ After deploying weechat and <a href="https://www.nginx.com/resources/glossary/ng
 <ul>
 <li>You should be running Linux or MacOS</li>
 <li><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html" target="_blank">Ansible &gt;= 2.8.5</a></li>
-<li><a href="https://github.com" target="_blank">Github account</a> - You should have and account</li>
-<li><a href="https://molecule.readthedocs.io/en/stable/installation.html" target="_blank">Molecule &gt;= 2.22</a> - Will be used for testing the ansible role</li>
+<li><a href="https://molecule.readthedocs.io/en/stable/installation.html" target="_blank">Molecule &gt;= 2.22</a> - Will be used for testing the Ansible role</li>
 </ul>
 
 <h2 id="creating-the-role">Creating the role</h2>
 
-<p>First, we will create an ansible role using molecule</p>
+<p>First, we will create an Ansible role using Molecule</p>
 
 <pre><code class="language-bash">$ ansible-galaxy init myircstack
 $ cd myircstack/
@@ -491,15 +529,15 @@ $ molecule init role -r myircstack
     8 directories, 11 files
 </code></pre>
 
-<p>The initial file structure will include a <strong>molecule</strong> directory which molecule will use to create docker containers to test the role we write. we will be editing the files there soon.</p>
+<p>The initial file structure will include a <strong>Molecule</strong> directory which Molecule will use to create docker containers to test the role we write. we will be editing the files there soon.</p>
 
-<p>For ansible to install weechat-headless, which will allow us to run weechat as a <a href="https://en.wikipedia.org/wiki/Daemon_(computing)" target="_blank">daemon</a>, we need to  make sure we are installing the latest weechat version that supports it (minimum 2.1). we will use debian for our host.</p>
+<p>For Ansible to install weechat-headless, which will allow us to run Weechat as a <a href="https://en.wikipedia.org/wiki/Daemon_(computing)" target="_blank">daemon</a>, we need to  make sure we are installing the latest Weechat version that supports it (minimum 2.1). we will use debian for our host.</p>
 
 <h2 id="package-installation">Package Installation</h2>
 
-<p>Following the <a href="https://weechat.org/download/debian/" target="_blank">weechat installationg instructions</a> for debian, we can start writing our playbook.</p>
+<p>Following the <a href="https://weechat.org/download/debian/" target="_blank">Weechat installationg instructions</a> for debian, we can start writing our playbook.</p>
 
-<p>Inside <em>tasks/</em> we will create the file:</p>
+<p>Inside <em>tasks/</em> we should create the file:</p>
 
 <p><em>tasks/setup-debian9.yml</em></p>
 
@@ -545,7 +583,7 @@ $ molecule init role -r myircstack
 <p>This task is specific to debian 9 (stretch) and will be tested as such, it&rsquo;s also worth noting that
 we are adding an external repository (<a href="https://weechat.org/debian" target="_blank">https://weechat.org/debian</a>).</p>
 
-<p>This means that in addition to depending on debian repositories we are depending on a private weechat repository which is not ideal. We will addres this in the next chapters.</p>
+<p>This means that in addition to depending on debian repositories we are depending on a private Weechat repository which is not ideal. We will addres this in the next chapters.</p>
 
 <h2 id="system-configuration">System Configuration</h2>
 
@@ -571,7 +609,7 @@ nginx_server_ssl_cert_dir: &quot;/var/creds&quot;
 glowingbear_path: /var/www/glowingbear
 </code></pre>
 
-<p>These variables will allow us some flexability when writing our playbook, including having custom relay certification and linux username</p>
+<p>These variables allow us some flexability when writing our playbook, including having custom relay certification and linux username</p>
 
 <p><em>tasks/environment.yaml</em></p>
 
@@ -614,12 +652,12 @@ glowingbear_path: /var/www/glowingbear
 
 <h2 id="templates">Templates</h2>
 
-<p>At this step will create 3 templates, for nginx, weechat relay, and the weechat service.</p>
+<p>At this step will create 3 templates, for nginx, Weechat relay, and the Weechat service.</p>
 
 <p>Lets start with the service:</p>
 
-<p>As you can see, I have decided to use the weechat user to run this service, this decision
-was made primarily due to the fact that weechat by default allows command executions via /exec, and running this process as root is just <a href="https://weechat.org/files/doc/devel/weechat_user.en.html#exec_plugin" target="_blank">asking for it</a>&hellip;</p>
+<p>As you can see, I have decided to use the Weechat user to run this service, this decision
+was made primarily due to the fact that Weechat by default allows command executions via /exec, and running this process as root is just <a href="https://weechat.org/files/doc/devel/weechat_user.en.html#exec_plugin" target="_blank">asking for it</a>&hellip;</p>
 
 <p><em>templates/weechat.service.j2</em></p>
 
@@ -639,22 +677,11 @@ WantedBy=default.target
 <p>I have opted to inserting the password directly into the template, there are several other options
 including <a href="https://github.com/weechat/weechat/issues/388" target="_blank">using environment variables</a></p>
 
-<p>It&rsquo;s possible to add the environmental variables inside a file and adding <em>EnvironmentFile=/path/to/file</em> under Service in the systemd unit file</p>
+<p>It&rsquo;s possible to add the environment variables inside a file and adding <em>EnvironmentFile=/path/to/file</em> under Service in the systemd unit file</p>
 
 <p><em>templates/relay.conf.j2</em></p>
 
-<pre><code class="language-cfg">#
-# weechat -- relay.conf
-#
-# WARNING: It is NOT recommended to edit this file by hand,
-# especially if WeeChat is running.
-#
-# Use /set or similar command to change settings in WeeChat.
-#
-# For more info, see: https://weechat.org/doc/quickstart
-#
-
-[look]
+<pre><code class="language-cfg">[look]
 auto_open_buffer = on
 raw_messages = 256
 
@@ -706,7 +733,7 @@ ipv4.ipv6.weechat = 9001
 
 <ul>
 <li><strong>We are not using SSL to secure the server (The plan is to use AWS Cloudfront)</strong><br/></li>
-<li><strong>We bound GlowingBear to the nginx server root. (It&rsquo;s a <a href="https://github.com/glowing-bear/glowing-bear" target="_blank">weechat frontend</a>)</strong></li>
+<li><strong>We added GlowingBear to the nginx server root. (It&rsquo;s a <a href="https://github.com/glowing-bear/glowing-bear" target="_blank">Weechat frontend</a>)</strong></li>
 </ul>
 
 <p>More about this in later chapters</p>
@@ -719,7 +746,6 @@ ipv4.ipv6.weechat = 9001
 }
 
 
-# Make sure this upstream matches your configuration in weechat!
 upstream weechat {
     server [::1]:9001;
 }
@@ -747,10 +773,10 @@ server {
 
 <h2 id="weechat-configuration">Weechat Configuration</h2>
 
-<p>At this point we have everything we need as far as directory creation.</p>
+<p>At this point we have everything we need as far as directory creation goes.</p>
 
-<p>Now we will create the SSL certificate that will be used by the Weechat Relay.
-Weechat requires we concatenate both certificates and mention the concatenated files&rsquo; contents (cert before key)
+<p>Now we create the SSL certificate that will be used by the Weechat Relay.
+Weechat requires we concatenate both certificates and put the concatenated files&rsquo; contents (cert before key)
 in relay.conf.</p>
 
 <p><em>tasks/weechat.yaml</em></p>
@@ -789,7 +815,7 @@ in relay.conf.</p>
 
 <h2 id="frontend">Frontend</h2>
 
-<p>Before enabling and starting Nginx, we will clone GlowingBear and make sure the Nginx ste configuration is templated and linked.</p>
+<p>Before enabling and starting Nginx clone GlowingBear and make sure the Nginx site configuration is templated and linked.</p>
 
 <p><em>tasks/glowingbear.yml</em></p>
 
@@ -831,7 +857,7 @@ in relay.conf.</p>
 
 <h2 id="finalizing-tasks">Finalizing Tasks</h2>
 
-<p>To bring all the configuration together, we will use the main.yml file that will be read and processed by ansible during playbook execution.<br/>
+<p>To bring all the configuration together, we use the main.yml file that will be read and processed by Ansible during playbook execution.<br/>
 Notice that we are passing a conditional that will execute package installation only if we are using Debian 9. More distribution can be supported by adding tasks corresponding to their name/version.</p>
 
 <p><em>tasks/main.yml</em></p>
@@ -874,22 +900,14 @@ Notice that we are passing a conditional that will execute package installation 
     - '9'
 
   galaxy_tags: [irc, weechat, nginx, glowingbear]
-    # List tags for your role here, one per line. A tag is a keyword that describes
-    # and categorizes the role. Users find roles by searching for tags. Be sure to
-    # remove the '[]' above, if you add tags to this list.
-    #
-    # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
-    #       Maximum 20 tags per role.
 
 dependencies: []
-  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
-  # if you add dependencies to this list.
 </code></pre>
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>Now we have a role that will install and configure Weechat, Nginx and GlowingBear but you might be asking <em>&ldquo;oh, well thats excellent, but how do I know it works?&rdquo;</em>
-Well.. you can add it to a playbook and execute this role, it will <del>probably</del> hopefully work. but testing this role will make changing anything considerably easier.</p>
+<p>Now that we have a role that installs and configures Weechat, Nginx and GlowingBear you might be asking <em>&ldquo;oh, well thats excellent, but how do I know it works?&rdquo;</em>
+Well.. you can add it to a playbook and execute this role, it will <del>probably</del> hopefully work. But testing this role will make changing anything considerably easier.</p>
 
 <p><strong>I tested this code and it does work on Debian Stretch</strong></p>
 
@@ -915,7 +933,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
   
   <a class="badge badge-light" href="/tags/git/">Git</a>
   
-  <a class="badge badge-light" href="">[Weechat](https://weechat.org/)</a>
+  <a class="badge badge-light" href="/tags/weechat/">Weechat</a>
   
 </div>
 
@@ -932,7 +950,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;text=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;text=Setting%20up%20Weechat%20relay%20server%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -945,7 +963,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;t=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;t=Setting%20up%20Weechat%20relay%20server%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook-f"></i>
         </a>
       </li>
@@ -958,7 +976,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
       
       
       <li>
-        <a href="mailto:?subject=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201&amp;body=https://blog.coregen.io/post/weechat-ansible-aws-part-1/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Setting%20up%20Weechat%20relay%20server%20-%20Part%201&amp;body=https://blog.coregen.io/post/weechat-ansible-aws-part-1/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -971,7 +989,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;title=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;title=Setting%20up%20Weechat%20relay%20server%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -984,7 +1002,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201%20https://blog.coregen.io/post/weechat-ansible-aws-part-1/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Setting%20up%20Weechat%20relay%20server%20-%20Part%201%20https://blog.coregen.io/post/weechat-ansible-aws-part-1/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -997,7 +1015,7 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;title=Weechat%20server%20using%20Ansible,%20Terraform%20and%20AWS%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://blog.coregen.io/post/weechat-ansible-aws-part-1/&amp;title=Setting%20up%20Weechat%20relay%20server%20-%20Part%201" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -1100,6 +1118,34 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
 
 
 
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "coregen" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
 
 
 
@@ -1192,6 +1238,8 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
     
 
     
+    
+    <script id="dsq-count-scr" src="https://coregen.disqus.com/count.js" async></script>
     
 
     

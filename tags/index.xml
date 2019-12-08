@@ -13,14 +13,6 @@
     </image>
     
     <item>
-      <title>[Weechat](https://weechat.org/)</title>
-      <link>https://blog.coregen.io/tags/weechathttps/weechat.org/</link>
-      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/weechathttps/weechat.org/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Ansible</title>
       <link>https://blog.coregen.io/tags/ansible/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
@@ -49,6 +41,14 @@
       <link>https://blog.coregen.io/tags/github/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Weechat</title>
+      <link>https://blog.coregen.io/tags/weechat/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://blog.coregen.io/tags/weechat/</guid>
       <description></description>
     </item>
     

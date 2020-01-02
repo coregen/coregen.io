@@ -4,22 +4,57 @@
   
   <url>
     <loc>https://blog.coregen.io/tags/ansible/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.coregen.io/categories/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.coregen.io/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.coregen.io/categories/devops/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/docker/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/github/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/molecule/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/weechat/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -33,27 +68,7 @@
   </url>
   
   <url>
-    <loc>https://blog.coregen.io/tags/github/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/post/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/tags/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/tags/weechat/</loc>
     <lastmod>2019-12-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -70,21 +85,6 @@
   <url>
     <loc>https://blog.coregen.io/project/</loc>
     <lastmod>2019-11-26T16:18:58+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/tags/docker/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/tags/molecule/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>

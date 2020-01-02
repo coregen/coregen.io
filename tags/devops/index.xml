@@ -19,6 +19,8 @@
       <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</guid>
       <description>
 
+&lt;p&gt;&lt;span style=&#34;color:#778899&#34;&gt;Update: theres no need to copy/paste text, &lt;a href=&#34;https://github.com/coregen/ansible-ircstack&#34; target=&#34;_blank&#34;&gt;follow this link&lt;/a&gt; to view the role. Due to it being in active development some variable names and tasks will differ slightly&lt;/span&gt;&lt;/p&gt;
+
 &lt;p&gt;During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34; target=&#34;_blank&#34;&gt;GlowingBear&lt;/a&gt; on &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt; to expose a web frontend to &lt;a href=&#34;https://weechat.org/&#34; target=&#34;_blank&#34;&gt;Weechat&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Using weechat this way led me to deploying this IRC &amp;ldquo;stack&amp;rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS).&lt;br/&gt;
@@ -38,6 +40,8 @@ After deploying weechat and &lt;a href=&#34;https://www.nginx.com/resources/glos
 &lt;/ul&gt;
 
 &lt;p&gt;This article will be split into 3-4 parts. This first part will be dealing with creating the Ansible role.&lt;/p&gt;
+
+&lt;p&gt;Note: if you want to avoid copy-pasting snippets, the project is available in &lt;a href=&#34;https://github.com/coregen/ircstack&#34; target=&#34;_blank&#34;&gt;coregen/ircstack&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
 
@@ -106,7 +110,7 @@ $ molecule init role -r myircstack
       - openssl
       - git
       # weechat dependencies / will be used to add deb repos
-      - dirmgr
+      - dirmngr
       - gpg-agent
       - apt-transport-https
 
@@ -163,9 +167,10 @@ weechat_frontend: true
 nginx_server_url: &amp;quot;localhost&amp;quot;
 nginx_server_ssl_cert_dir: &amp;quot;/var/creds&amp;quot;
 glowingbear_path: /var/www/glowingbear
+nginx_with_reverse_proxy: true
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;These variables allow us some flexability when writing our playbook, including having custom relay certification and linux username&lt;/p&gt;
+&lt;p&gt;These variables allow us some flexability when writing our playbook, including using relay ssl cert and custom linux username&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;tasks/environment.yaml&lt;/em&gt;&lt;/p&gt;
 
@@ -316,7 +321,7 @@ server {
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection &amp;quot;upgrade&amp;quot;;
-      proxy_ssl_trusted_certificate {{ weechat_relay_cert }};
+      proxy_ssl_trusted_certificate {{ weechat_relay_key }};
       proxy_ssl_verify off;
       proxy_read_timeout 4h;
   }
@@ -326,8 +331,6 @@ server {
   }
 }
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;weechat-configuration&#34;&gt;Weechat Configuration&lt;/h2&gt;
 
 &lt;p&gt;At this point we have everything we need as far as directory creation goes.&lt;/p&gt;
 
@@ -345,7 +348,7 @@ in relay.conf.&lt;/p&gt;
 
 - name: Concatenate public cert and key into weechat relay cert
   shell: &amp;gt;
-    cat {{ weechat_relay_public_cert }} {{ weechat_relay_key }} &amp;gt; {{ weechat_relay_cert }}
+    cat {{ weechat_relay_key }} {{ weechat_relay_public_cert }} &amp;gt; {{ weechat_relay_cert }}
 
 # Create the weechat service unit file
 - name: Template weechat.service
@@ -364,6 +367,7 @@ in relay.conf.&lt;/p&gt;
 
 - name: Activate weechat service
   systemd:
+    daemon_reload: true
     name: weechat
     enabled: true
     state: started
@@ -410,6 +414,8 @@ in relay.conf.&lt;/p&gt;
     state: started
 
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;weechat-configuration&#34;&gt;Weechat configuration&lt;/h2&gt;
 
 &lt;h2 id=&#34;finalizing-tasks&#34;&gt;Finalizing Tasks&lt;/h2&gt;
 

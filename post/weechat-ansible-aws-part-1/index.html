@@ -463,6 +463,8 @@
     <div class="article-style">
       
 
+<p><span style="color:#778899">Update: theres no need to copy/paste text, <a href="https://github.com/coregen/ansible-ircstack" target="_blank">follow this link</a> to view the role. Due to it being in active development some variable names and tasks will differ slightly</span></p>
+
 <p>During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using <a href="https://www.glowing-bear.org/#!/" target="_blank">GlowingBear</a> on <a href="https://www.nginx.com/resources/glossary/nginx/" target="_blank">Nginx</a> to expose a web frontend to <a href="https://weechat.org/" target="_blank">Weechat</a>.</p>
 
 <p>Using weechat this way led me to deploying this IRC &ldquo;stack&rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS).<br/>
@@ -482,6 +484,8 @@ After deploying weechat and <a href="https://www.nginx.com/resources/glossary/ng
 </ul>
 
 <p>This article will be split into 3-4 parts. This first part will be dealing with creating the Ansible role.</p>
+
+<p>Note: if you want to avoid copy-pasting snippets, the project is available in <a href="https://github.com/coregen/ircstack" target="_blank">coregen/ircstack</a></p>
 
 <h2 id="requirements">Requirements</h2>
 
@@ -550,7 +554,7 @@ $ molecule init role -r myircstack
       - openssl
       - git
       # weechat dependencies / will be used to add deb repos
-      - dirmgr
+      - dirmngr
       - gpg-agent
       - apt-transport-https
 
@@ -607,9 +611,10 @@ weechat_frontend: true
 nginx_server_url: &quot;localhost&quot;
 nginx_server_ssl_cert_dir: &quot;/var/creds&quot;
 glowingbear_path: /var/www/glowingbear
+nginx_with_reverse_proxy: true
 </code></pre>
 
-<p>These variables allow us some flexability when writing our playbook, including having custom relay certification and linux username</p>
+<p>These variables allow us some flexability when writing our playbook, including using relay ssl cert and custom linux username</p>
 
 <p><em>tasks/environment.yaml</em></p>
 
@@ -760,7 +765,7 @@ server {
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection &quot;upgrade&quot;;
-      proxy_ssl_trusted_certificate {{ weechat_relay_cert }};
+      proxy_ssl_trusted_certificate {{ weechat_relay_key }};
       proxy_ssl_verify off;
       proxy_read_timeout 4h;
   }
@@ -770,8 +775,6 @@ server {
   }
 }
 </code></pre>
-
-<h2 id="weechat-configuration">Weechat Configuration</h2>
 
 <p>At this point we have everything we need as far as directory creation goes.</p>
 
@@ -789,7 +792,7 @@ in relay.conf.</p>
 
 - name: Concatenate public cert and key into weechat relay cert
   shell: &gt;
-    cat {{ weechat_relay_public_cert }} {{ weechat_relay_key }} &gt; {{ weechat_relay_cert }}
+    cat {{ weechat_relay_key }} {{ weechat_relay_public_cert }} &gt; {{ weechat_relay_cert }}
 
 # Create the weechat service unit file
 - name: Template weechat.service
@@ -808,6 +811,7 @@ in relay.conf.</p>
 
 - name: Activate weechat service
   systemd:
+    daemon_reload: true
     name: weechat
     enabled: true
     state: started
@@ -854,6 +858,8 @@ in relay.conf.</p>
     state: started
 
 </code></pre>
+
+<h2 id="weechat-configuration">Weechat configuration</h2>
 
 <h2 id="finalizing-tasks">Finalizing Tasks</h2>
 
@@ -1152,6 +1158,15 @@ Well.. you can add it to a playbook and execute this role, it will <del>probably
 
 
   
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/weechat-ansible-aws-part-2/">Setting up Weechat relay server - Part 2</a></li>
+      
+    </ul>
+  </div>
   
 
 

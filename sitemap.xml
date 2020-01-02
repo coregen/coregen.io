@@ -73,6 +73,21 @@
   </url>
   
   <url>
+    <loc>https://blog.coregen.io/tags/docker/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/molecule/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.coregen.io/authors/admin/</loc>
   </url>
   

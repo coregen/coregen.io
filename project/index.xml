@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects | Coregen.io</title>
-    <link>https://blog.coregen.io/project/</link>
-      <atom:link href="https://blog.coregen.io/project/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://coregen.io/project/</link>
+      <atom:link href="https://coregen.io/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 26 Nov 2019 16:18:58 +0200</lastBuildDate>
     <image>
-      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <url>https://coregen.io/images/icon_hu2c6f053e56c544a8239ab876c17b8a40_70680_512x512_fill_lanczos_center_2.png</url>
       <title>Projects</title>
-      <link>https://blog.coregen.io/project/</link>
+      <link>https://coregen.io/project/</link>
     </image>
     
     <item>
       <title>Coregen</title>
-      <link>https://blog.coregen.io/project/coregen/</link>
+      <link>https://coregen.io/project/coregen/</link>
       <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
-      <guid>https://blog.coregen.io/project/coregen/</guid>
+      <guid>https://coregen.io/project/coregen/</guid>
       <description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Star&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Openbalkans</title>
-      <link>https://blog.coregen.io/project/openbalkans/</link>
+      <link>https://coregen.io/project/openbalkans/</link>
       <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
-      <guid>https://blog.coregen.io/project/openbalkans/</guid>
+      <guid>https://coregen.io/project/openbalkans/</guid>
       <description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Star&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </description>
     </item>

@@ -2,93 +2,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | Coregen.io</title>
-    <link>https://blog.coregen.io/tags/</link>
-      <atom:link href="https://blog.coregen.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://coregen.io/tags/</link>
+      <atom:link href="https://coregen.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 02 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <url>https://coregen.io/images/icon_hu2c6f053e56c544a8239ab876c17b8a40_70680_512x512_fill_lanczos_center_2.png</url>
       <title>Tags</title>
-      <link>https://blog.coregen.io/tags/</link>
+      <link>https://coregen.io/tags/</link>
     </image>
     
     <item>
       <title>Ansible</title>
-      <link>https://blog.coregen.io/tags/ansible/</link>
+      <link>https://coregen.io/tags/ansible/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/ansible/</guid>
+      <guid>https://coregen.io/tags/ansible/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker</title>
-      <link>https://blog.coregen.io/tags/docker/</link>
+      <link>https://coregen.io/tags/docker/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/docker/</guid>
+      <guid>https://coregen.io/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Github</title>
-      <link>https://blog.coregen.io/tags/github/</link>
+      <link>https://coregen.io/tags/github/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/github/</guid>
+      <guid>https://coregen.io/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Molecule</title>
-      <link>https://blog.coregen.io/tags/molecule/</link>
+      <link>https://coregen.io/tags/molecule/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/molecule/</guid>
+      <guid>https://coregen.io/tags/molecule/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Weechat</title>
-      <link>https://blog.coregen.io/tags/weechat/</link>
+      <link>https://coregen.io/tags/weechat/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/weechat/</guid>
+      <guid>https://coregen.io/tags/weechat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Devops</title>
-      <link>https://blog.coregen.io/tags/devops/</link>
+      <link>https://coregen.io/tags/devops/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/devops/</guid>
+      <guid>https://coregen.io/tags/devops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git</title>
-      <link>https://blog.coregen.io/tags/git/</link>
+      <link>https://coregen.io/tags/git/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/tags/git/</guid>
+      <guid>https://coregen.io/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bson</title>
-      <link>https://blog.coregen.io/tags/bson/</link>
+      <link>https://coregen.io/tags/bson/</link>
       <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
-      <guid>https://blog.coregen.io/tags/bson/</guid>
+      <guid>https://coregen.io/tags/bson/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
-      <link>https://blog.coregen.io/tags/python/</link>
+      <link>https://coregen.io/tags/python/</link>
       <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
-      <guid>https://blog.coregen.io/tags/python/</guid>
+      <guid>https://coregen.io/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>https://blog.coregen.io/tags/tools/</link>
+      <link>https://coregen.io/tags/tools/</link>
       <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
-      <guid>https://blog.coregen.io/tags/tools/</guid>
+      <guid>https://coregen.io/tags/tools/</guid>
       <description></description>
     </item>
     

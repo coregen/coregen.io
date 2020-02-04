@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories | Coregen.io</title>
-    <link>https://blog.coregen.io/categories/</link>
-      <atom:link href="https://blog.coregen.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://coregen.io/categories/</link>
+      <atom:link href="https://coregen.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <description>Categories</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 02 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <url>https://coregen.io/images/icon_hu2c6f053e56c544a8239ab876c17b8a40_70680_512x512_fill_lanczos_center_2.png</url>
       <title>Categories</title>
-      <link>https://blog.coregen.io/categories/</link>
+      <link>https://coregen.io/categories/</link>
     </image>
     
     <item>
       <title>Devops</title>
-      <link>https://blog.coregen.io/categories/devops/</link>
+      <link>https://coregen.io/categories/devops/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/categories/devops/</guid>
+      <guid>https://coregen.io/categories/devops/</guid>
       <description></description>
     </item>
     

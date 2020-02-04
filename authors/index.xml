@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors | Coregen.io</title>
-    <link>https://blog.coregen.io/authors/</link>
-      <atom:link href="https://blog.coregen.io/authors/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://coregen.io/authors/</link>
+      <atom:link href="https://coregen.io/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 26 Nov 2019 16:18:58 +0200</lastBuildDate>
     <image>
-      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <url>https://coregen.io/images/icon_hu2c6f053e56c544a8239ab876c17b8a40_70680_512x512_fill_lanczos_center_2.png</url>
       <title>Authors</title>
-      <link>https://blog.coregen.io/authors/</link>
+      <link>https://coregen.io/authors/</link>
     </image>
     
     <item>
       <title>Barak Avrahami</title>
-      <link>https://blog.coregen.io/authors/barak-avrahami/</link>
+      <link>https://coregen.io/authors/barak-avrahami/</link>
       <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
-      <guid>https://blog.coregen.io/authors/barak-avrahami/</guid>
+      <guid>https://coregen.io/authors/barak-avrahami/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://blog.coregen.io/authors/admin/</link>
+      <link>https://coregen.io/authors/admin/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://blog.coregen.io/authors/admin/</guid>
+      <guid>https://coregen.io/authors/admin/</guid>
       <description>&lt;p&gt;My main interests are Reading, Writing, Linux, Devops, FOSS and Software development&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;m currently learning Terraform, Kubernetes, Ansible, Haskell, AWS, Consul, Docker and other interesting subjects related to FOSS, DevOps and the Cloud.&lt;/p&gt;
+&lt;p&gt;I&#39;m currently learning Terraform, Kubernetes, Ansible, Haskell, AWS, Consul, Docker and other interesting subjects related to FOSS, DevOps and the Cloud.&lt;/p&gt;
 </description>
     </item>
     

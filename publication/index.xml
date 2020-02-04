@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications | Coregen.io</title>
-    <link>https://blog.coregen.io/publication/</link>
-      <atom:link href="https://blog.coregen.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://coregen.io/publication/</link>
+      <atom:link href="https://coregen.io/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Publications</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
-      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <url>https://coregen.io/images/icon_hu2c6f053e56c544a8239ab876c17b8a40_70680_512x512_fill_lanczos_center_2.png</url>
       <title>Publications</title>
-      <link>https://blog.coregen.io/publication/</link>
+      <link>https://coregen.io/publication/</link>
     </image>
     
   </channel>

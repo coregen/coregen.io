@@ -204,11 +204,11 @@ will help us understand the overll flow.
 Following are the informational blog posts and docs that I used when writing this post
 &lt;strong&gt;If you encounter errors, feel free to leave a comment&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://help.github.com/en/actions&#34;&gt;Github Actions Documentation&lt;/a&gt;
-&lt;a href=&#34;https://github.com/actions/toolkit/blob/master/docs/action-debugging.md&#34;&gt;Github Actions Debugging guide&lt;/a&gt;
-&lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/cli/&#34;&gt;Docker CLI Docs&lt;/a&gt;
-&lt;a href=&#34;https://galaxy.ansible.com/docs/contributing/importing.html&#34;&gt;Ansible-Galaxy - Importing content&lt;/a&gt;
-&lt;a href=&#34;https://lwn.net/Articles/676831/&#34;&gt;Jeff Geerling&amp;rsquo;s post about ansible role testing&lt;/a&gt;
+&lt;p&gt;&lt;a href=&#34;https://help.github.com/en/actions&#34;&gt;Github Actions Documentation&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/actions/toolkit/blob/master/docs/action-debugging.md&#34;&gt;Github Actions Debugging guide&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/cli/&#34;&gt;Docker CLI Docs&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://galaxy.ansible.com/docs/contributing/importing.html&#34;&gt;Ansible-Galaxy - Importing content&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://lwn.net/Articles/676831/&#34;&gt;Jeff Geerling&amp;rsquo;s post about ansible role testing&lt;/a&gt;&lt;br&gt;
 &lt;a href=&#34;https://hub.github.com/hub.1.html&#34;&gt;Hub documentation&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>

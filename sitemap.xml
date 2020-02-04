@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
@@ -78,7 +78,27 @@
   </url>
   
   <url>
+    <loc>https://blog.coregen.io/authors/</loc>
+    <lastmod>2019-11-26T16:18:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/authors/barak-avrahami/</loc>
+    <lastmod>2019-11-26T16:18:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/bson/</loc>
+    <lastmod>2019-11-26T16:18:58+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.coregen.io/project/coregen/</loc>
+    <lastmod>2019-11-26T16:18:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/project/openbalkans/</loc>
     <lastmod>2019-11-26T16:18:58+02:00</lastmod>
   </url>
   
@@ -88,11 +108,21 @@
   </url>
   
   <url>
+    <loc>https://blog.coregen.io/tags/python/</loc>
+    <lastmod>2019-11-26T16:18:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.coregen.io/tags/tools/</loc>
+    <lastmod>2019-11-26T16:18:58+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.coregen.io/authors/admin/</loc>
   </url>
   
   <url>
-    <loc>https://blog.coregen.io/authors/</loc>
+    <loc>https://blog.coregen.io/about/</loc>
   </url>
   
   <url>

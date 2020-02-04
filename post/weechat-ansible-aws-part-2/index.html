@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic 4.5.0">
+  <meta name="generator" content="Source Themes Academic 4.6.0">
 
   
 
@@ -39,7 +39,7 @@
   
   
   
-  <meta name="theme-color" content="#3f51b5">
+  <meta name="theme-color" content="#6272a4">
   
 
   
@@ -59,10 +59,8 @@
     
       
       
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/monokai-sublime.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/monokai-sublime.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -75,7 +73,7 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code:400,700%7CMontserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
   
 
   
@@ -461,65 +459,43 @@
   <div class="article-container">
 
     <div class="article-style">
-      
-
-<h2 id="goals">Goals</h2>
-
+      <h2 id="goals">Goals</h2>
 <ul>
 <li>Make a new home for our role in github</li>
 <li>Our Docker base images should support systemd</li>
 <li>Use Molecule to test our role</li>
 <li>Distribute role with ansible-galaxy</li>
 </ul>
-
-<p>Note: if you want to avoid copy-pasting snippets, the project is available in <a href="https://github.com/coregen/ircstack" target="_blank">coregen/ircstack</a></p>
-
+<p>Note: if you want to avoid copy-pasting snippets, the project is available in <a href="https://github.com/coregen/ircstack">coregen/ircstack</a></p>
 <h2 id="requirements">Requirements</h2>
-
 <ul>
 <li>You should be running Linux or MacOS</li>
-<li><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html" target="_blank">Ansible, ansible-galaxy</a></li>
-<li><a href="https://git-scm.com/" target="_blank">git</a> - Used for version control</li>
-<li><a href="https://github.com" target="_blank">Github account</a> - You should have and account</li>
-<li><a href="https://github.com/github/hub" target="_blank">hub</a> (It&rsquo;s not required, but there will be some manual actions required if not installed)</li>
-<li><a href="https://molecule.readthedocs.io/en/stable/installation.html" target="_blank">Molecule</a> - Will be used for testing the ansible role</li>
-<li><a href="https://docs.docker.com/install/" target="_blank">Docker</a> - Will be used by molecule to create containers</li>
+<li><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">Ansible, ansible-galaxy</a></li>
+<li><a href="https://git-scm.com/">git</a> - Used for version control</li>
+<li><a href="https://github.com">Github account</a> - You should have and account</li>
+<li><a href="https://github.com/github/hub">hub</a> (It&rsquo;s not required, but there will be some manual actions required if not installed)</li>
+<li><a href="https://molecule.readthedocs.io/en/stable/installation.html">Molecule</a> - Will be used for testing the ansible role</li>
+<li><a href="https://docs.docker.com/install/">Docker</a> - Will be used by molecule to create containers</li>
 </ul>
-
 <h2 id="version-control">Version Control</h2>
-
-<p>If you haven&rsquo;t heard of this term before, check out <a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control" target="_blank">this article</a>.</p>
-
+<p>If you haven&rsquo;t heard of this term before, check out <a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">this article</a>.</p>
 <p>We will use Github as a remote for our new repository</p>
-
-<pre><code class="language-bash">cd /to/your/role/directory
+<pre><code class="language-{bash}" data-lang="{bash}">cd /to/your/role/directory
 git init
 git add .
 git commit -m &quot;Initial commit&quot;
-</code></pre>
-
-<p>Now that we have our local repository is set, we can continue with the remote<br/>.
+</code></pre><p>Now that we have our local repository is set, we can continue with the remote<!-- raw HTML omitted -->.
 The following command will create a Github repository and add it as a remote in our local repository.
 <em>You should be prompted for your user/password after running this command for the first time</em></p>
-
-<pre><code class="language-bash">hub create myircstack  # You can change &quot;myircstack&quot; to your desired repository name
-</code></pre>
-
-<p>Now we can push our latest commit to our Github remote</p>
-
-<pre><code class="language-bash">git push origin master
-</code></pre>
-
-<h2 id="docker-and-systemd">Docker and systemd</h2>
-
+<pre><code class="language-{bash}" data-lang="{bash}">hub create myircstack  # You can change &quot;myircstack&quot; to your desired repository name
+</code></pre><p>Now we can push our latest commit to our Github remote</p>
+<pre><code class="language-{bash}" data-lang="{bash}">git push origin master
+</code></pre><h2 id="docker-and-systemd">Docker and systemd</h2>
 <p>As some of you might know, Docker is a container engine used by developers to automate application deployment, testing and in some cases is used to deploy applications in production environments. We will use Docker to test our role.</p>
-
-<p>Let&rsquo;s try using Molecule to build a container and run the role.<br/>
+<p>Let&rsquo;s try using Molecule to build a container and run the role.<!-- raw HTML omitted -->
 In our molecule configuration file, we describe the configuration Molecule will use to create our container. In the last part, we wrote an Ansible task to install weechat on Debian 9, we should change centos:7 to debian:stretch under <strong>platforms</strong>.</p>
-
 <p>molecule/default/molecule.yml</p>
-
-<pre><code class="language-bash">---
+<pre><code class="language-{bash}" data-lang="{bash}">---
 dependency:
   name: galaxy
 driver:
@@ -537,31 +513,19 @@ verifier:
   name: testinfra
   lint:
     name: flake8
-</code></pre>
-
-<p>This will set our testing containers&rsquo; base image to debian 9.<br/>
+</code></pre><p>This will set our testing containers&rsquo; base image to debian 9.<!-- raw HTML omitted -->
 Time to give Molecule a shot!</p>
-
-<pre><code class="language-bash">molecule create &amp;&amp; molecule converge
-</code></pre>
-
-<p>The &ldquo;create&rdquo; command will create our container, and &ldquo;converge&rdquo; will run our role using the playbook <em>molecule/default/playbook.yaml</em><br/>
+<pre><code class="language-{bash}" data-lang="{bash}">molecule create &amp;&amp; molecule converge
+</code></pre><p>The &ldquo;create&rdquo; command will create our container, and &ldquo;converge&rdquo; will run our role using the playbook _molecule/default/playbook.yaml_<!-- raw HTML omitted -->
 We can now see the output for both playbooks (One creates the container, the other runs our role).</p>
-
 <p>Our playbook is expected to fail when we first try activating a systemd service.</p>
-
-<pre><code class="language-bash">    TASK [myircstack : Activate weechat service] ***********************************
+<pre><code class="language-{bash}" data-lang="{bash}">    TASK [myircstack : Activate weechat service] ***********************************
     fatal: [instance]: FAILED! =&gt; {&quot;changed&quot;: false, &quot;msg&quot;: &quot;Failed to find required executable systemctl in paths: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;}
-</code></pre>
-
-<p>Those of you who are less familiar with Docker will be puzzled, and rightly so. The last time I checked, Debian 9 had systemd installed by default.</p>
-
+</code></pre><p>Those of you who are less familiar with Docker will be puzzled, and rightly so. The last time I checked, Debian 9 had systemd installed by default.</p>
 <p>To make Docker and systemd play nice together, we have to do rewrite the playbook that creates the Docker container.
-The following snippet was taken from <a href="https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule" target="_blank">Jeff Geerling&rsquo;s excellent blog post</a> regarding Ansible and Molecule testing.</p>
-
+The following snippet was taken from <a href="https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule">Jeff Geerling&rsquo;s excellent blog post</a> regarding Ansible and Molecule testing.</p>
 <p><em>molecule/default/molecule.yml</em></p>
-
-<pre><code class="language-bash">---
+<pre><code class="language-{bash}" data-lang="{bash}">---
 dependency:
   name: galaxy
 driver:
@@ -592,33 +556,24 @@ verifier:
   name: testinfra
   lint:
     name: flake8
-</code></pre>
-
-<p>In ths snippet we can see that we mount cgroups as read only and run this container in priviliged state, this allows the contrainer to execute systemd.
+</code></pre><p>In ths snippet we can see that we mount cgroups as read only and run this container in priviliged state, this allows the contrainer to execute systemd.
 I have opted to use Jeff&rsquo;s premade Docker containers, as they come with systemd, sysvinit and other goodies already installed.</p>
-
 <p>In Molecule configuration we can use environment variables with defaults (if specified variable is not available). In the following example, MOLECULE_DISTRO will default to debian9</p>
-
-<pre><code class="language-bash">${MOLECULE_DISTRO:-debian9}
-</code></pre>
-
-<p>In addition to specifying the Docker image, we will expose port 80.</p>
-
+<pre><code class="language-{bash}" data-lang="{bash}">${MOLECULE_DISTRO:-debian9}
+</code></pre><p>In addition to specifying the Docker image, we will expose port 80.</p>
 <p>Now we should be able to create our Docker container and see if our role works</p>
-
-<pre><code class="language-bash">$ molecule create &amp;&amp; molecule converge
-</code></pre>
-
-<p>GlowingBear frontend should be available after Molecule is done, try to connect using our default password (defaultpass).</p>
-
+<pre><code class="language-{bash}" data-lang="{bash}">$ molecule create &amp;&amp; molecule converge
+</code></pre><p>GlowingBear frontend should be available after Molecule is done, try to connect using our default password (defaultpass).</p>
 <h3 id="notes">Notes:</h3>
-
 <ul>
-<li><p><strong>If you are interested in some background about why systemd is not available in Docker containers by default you can check</strong> <a href="https://lwn.net/Articles/676831/" target="_blank"><strong>this article</strong></a>.</p></li>
-
-<li><p><strong>If you want to know about other Docker images from geerlingguy, here is the latest list</strong></p>
-
-<pre><code class="language-bash">$ docker search geerlingguy | grep -o &quot;^.*docker-.*-ansible&quot;
+<li>
+<p><strong>If you are interested in some background about why systemd is not available in Docker containers by default you can check</strong> <a href="https://lwn.net/Articles/676831/"><strong>this article</strong></a>.</p>
+</li>
+<li>
+<p><strong>If you want to know about other Docker images from geerlingguy, here is the latest list</strong></p>
+</li>
+</ul>
+<pre><code class="language-{bash}" data-lang="{bash}">$ docker search geerlingguy | grep -o &quot;^.*docker-.*-ansible&quot;
 geerlingguy/docker-centos7-ansible
 geerlingguy/docker-ubuntu1604-ansible
 geerlingguy/docker-ubuntu1804-ansible
@@ -635,94 +590,68 @@ geerlingguy/docker-centos8-ansible
 geerlingguy/docker-amazonlinux2-ansible
 geerlingguy/docker-fedora30-ansible
 geerlingguy/docker-fedora31-ansible
-</code></pre></li>
-</ul>
-
-<h2 id="ansible-role-testing-with-github-actions">Ansible Role Testing with Github Actions</h2>
-
-<p>We will use Github Actions to run Molecule on push and pull requests. first, we can observe the examples that are given be <a href="https://molecule.readthedocs.io/en/latest/ci.html" target="_blank">Molecule
+</code></pre><h2 id="ansible-role-testing-with-github-actions">Ansible Role Testing with Github Actions</h2>
+<p>We will use Github Actions to run Molecule on push and pull requests. first, we can observe the examples that are given be <a href="https://molecule.readthedocs.io/en/latest/ci.html">Molecule
 in the official documentation</a> and modify the example to suit our needs</p>
-
 <p><em>.github/workflows/test_role.yml</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#66d9ef">name</span>: Test my role with molecule
+<span style="color:#66d9ef">on</span>: [push, pull_request]  <span style="color:#75715e"># Triggers for starting a test run</span>
+<span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">build</span>:
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest  <span style="color:#75715e"># The linux distribution this task will run on</span>
 
-<pre><code class="language-yaml">---
-name: Test my role with molecule
-on: [push, pull_request]  # Triggers for starting a test run
-jobs:
-  build:
-    runs-on: ubuntu-latest  # The linux distribution this task will run on
-
-    strategy:
-      matrix:
-        image:
-          - debian9  # The distro we will use inside docker to test our role, see below in MOLECULE_DISTRO
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: |
-          sudo apt install docker git
+    <span style="color:#66d9ef">strategy</span>:
+      <span style="color:#66d9ef">matrix</span>:
+        <span style="color:#66d9ef">image</span>:
+          - debian9  <span style="color:#75715e"># The distro we will use inside docker to test our role, see below in MOLECULE_DISTRO</span>
+    <span style="color:#66d9ef">steps</span>:
+      - <span style="color:#66d9ef">uses</span>: actions/checkout@v2
+      - <span style="color:#66d9ef">name</span>: Set up Python <span style="color:#ae81ff">3.7</span>
+        <span style="color:#66d9ef">uses</span>: actions/setup-python@v1
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">python-version</span>: <span style="color:#ae81ff">3.7</span>
+      - <span style="color:#66d9ef">name</span>: Install dependencies
+        <span style="color:#66d9ef">run</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">         </span><span style="color:#e6db74"> </span><span style="color:#e6db74">sudo apt install docker git</span>
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: &quot;Test role&quot;
-        run: |
-          molecule test
-        env:
-          MOLECULE_DISTRO: &quot;${{ matrix.image }}&quot;  # Used in molecule/default/molecule.yml to detemine the distro the role will be tested against
-</code></pre>
-
-<p>Now Github Actions should test the role against Debian 9.</p>
-
+      - <span style="color:#66d9ef">name</span>: <span style="color:#e6db74">&#34;Test role&#34;</span>
+        <span style="color:#66d9ef">run</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">         </span><span style="color:#e6db74"> </span><span style="color:#e6db74">molecule test</span>
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">MOLECULE_DISTRO</span>: <span style="color:#e6db74">&#34;${{ matrix.image }}&#34;</span>  <span style="color:#75715e"># Used in molecule/default/molecule.yml to detemine the distro the role will be tested against</span>
+</code></pre></div><p>Now Github Actions should test the role against Debian 9.</p>
 <p>Add a <em>requirements.txt</em> file to our repository to make sure all python dependencies are installed.</p>
-
 <p><em>requirements.txt</em></p>
-
-<pre><code class="language-bash">ansible==2.9.2
-molecule[docker]==2.22
-</code></pre>
-
-<h2 id="ansible-galaxy">Ansible Galaxy</h2>
-
-<p>Now that we know our role works, we can share it with others.<br/>
-Register to <a href="https://galaxy.ansible.com" target="_blank">Ansible-Galaxy</a> with your github account and login via cli</p>
-
-<pre><code class="language-bash">ansible-galaxy login  # you will be prompted for you github user and password
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ansible<span style="color:#f92672">=</span><span style="color:#f92672">=</span>2.9.2
+molecule<span style="color:#f92672">[</span>docker<span style="color:#f92672">]</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>2.22
+</code></pre></div><h2 id="ansible-galaxy">Ansible Galaxy</h2>
+<p>Now that we know our role works, we can share it with others.<!-- raw HTML omitted -->
+Register to <a href="https://galaxy.ansible.com">Ansible-Galaxy</a> with your github account and login via cli</p>
+<pre><code class="language-{bash}" data-lang="{bash}">ansible-galaxy login  # you will be prompted for you github user and password
 ansible-galaxy import --branch &lt;branch_to_import&gt; &lt;github_user&gt; &lt;github_repo_name&gt; -vvv  # will import your role to galaxy, repository should be public
-</code></pre>
-
-<p>Your role should now be available on ansible-galaxy, lets try installing it</p>
-
-<pre><code class="language-bash">ansible-galaxy install &lt;github_username&gt;.&lt;name_of_the_role_in_meta&gt;
-</code></pre>
-
-<p>Example:</p>
-
-<pre><code class="language-bash">$ ansible-galaxy install myuser.myrole
+</code></pre><p>Your role should now be available on ansible-galaxy, lets try installing it</p>
+<pre><code class="language-{bash}" data-lang="{bash}">ansible-galaxy install &lt;github_username&gt;.&lt;name_of_the_role_in_meta&gt;
+</code></pre><p>Example:</p>
+<pre><code class="language-{bash}" data-lang="{bash}">$ ansible-galaxy install myuser.myrole
 - downloading role 'myrole', owned by myuser
 - downloading role from https://github.com/myuser/myrepo/archive/mybranch.tar.gz
 - extracting myuser.myrole to /path/th/.ansible/roles/myuser.myrole
 - myuser.myrole (mybranch) was installed successfully
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
+</code></pre><h2 id="conclusion">Conclusion</h2>
 <p>As you can see, there are several different applications involved in testing and distributing out role,
 We should not be overwhelemed by the amount of information required of us, reading the official documentation of each application/service
 will help us understand the overll flow.
 Following are the informational blog posts and docs that I used when writing this post
 <strong>If you encounter errors, feel free to leave a comment</strong></p>
-
 <h2 id="references">References</h2>
-
-<p><a href="https://help.github.com/en/actions" target="_blank">Github Actions Documentation</a>
-<a href="https://github.com/actions/toolkit/blob/master/docs/action-debugging.md" target="_blank">Github Actions Debugging guide</a>
-<a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank">Docker CLI Docs</a>
-<a href="https://galaxy.ansible.com/docs/contributing/importing.html" target="_blank">Ansible-Galaxy - Importing content</a>
-<a href="https://lwn.net/Articles/676831/" target="_blank">Jeff Geerling&rsquo;s post about ansible role testing</a>
-<a href="https://hub.github.com/hub.1.html" target="_blank">Hub documentation</a></p>
+<p><a href="https://help.github.com/en/actions">Github Actions Documentation</a>
+<a href="https://github.com/actions/toolkit/blob/master/docs/action-debugging.md">Github Actions Debugging guide</a>
+<a href="https://docs.docker.com/engine/reference/commandline/cli/">Docker CLI Docs</a>
+<a href="https://galaxy.ansible.com/docs/contributing/importing.html">Ansible-Galaxy - Importing content</a>
+<a href="https://lwn.net/Articles/676831/">Jeff Geerling&rsquo;s post about ansible role testing</a>
+<a href="https://hub.github.com/hub.1.html">Hub documentation</a></p>
 
     </div>
 
@@ -801,32 +730,6 @@ Following are the informational blog posts and docs that I used when writing thi
         </a>
       </li>
     
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://web.whatsapp.com/send?text=Setting%20up%20Weechat%20relay%20server%20-%20Part%202%20https://blog.coregen.io/post/weechat-ansible-aws-part-2/" target="_blank" rel="noopener" class="share-btn-whatsapp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://blog.coregen.io/post/weechat-ansible-aws-part-2/&amp;title=Setting%20up%20Weechat%20relay%20server%20-%20Part%202" target="_blank" rel="noopener" class="share-btn-weibo">
-          <i class="fab fa-weibo"></i>
-        </a>
-      </li>
-    
   </ul>
 </div>
 
@@ -863,7 +766,7 @@ Following are the informational blog posts and docs that I used when writing thi
     <div class="media-body">
       <h5 class="card-title"><a href="https://blog.coregen.io/">Barak Avrahami</a></h5>
       <h6 class="card-subtitle">Software Developer and Hardware Specialist</h6>
-      <p class="card-text">My main interests are Linux, Software Development and DevOps</p>
+      <p class="card-text">Linux, Software Development and DevOps</p>
       <ul class="network-icon" aria-hidden="true">
   
     
@@ -875,10 +778,8 @@ Following are the informational blog posts and docs that I used when writing thi
     
     
     
-      
-    
     <li>
-      <a href="/#contact" >
+      <a href="mailto:barak1345@gmail.com" >
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -994,6 +895,14 @@ Following are the informational blog posts and docs that I used when writing thi
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/yaml.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/json.min.js"></script>
+        
       
 
       
@@ -1072,7 +981,7 @@ Following are the informational blog posts and docs that I used when writing thi
     
     
     
-    <script src="/js/academic.min.2456a0ce10b7665be94de67852f9a372.js"></script>
+    <script src="/js/academic.min.96cf4c3dc37ea60dbbd03c13a455f1f7.js"></script>
 
     
 
@@ -1089,10 +998,6 @@ Following are the informational blog posts and docs that I used when writing thi
 
   <p class="powered-by">
     
-
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
     
     <span class="float-right" aria-hidden="true">

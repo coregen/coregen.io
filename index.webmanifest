@@ -2,8 +2,8 @@
   "name": "Coregen.io",
   "short_name": "Coregen.io",
   "lang": "en-us",
-  "theme_color": "#3f51b5",
-  "background_color": "#3f51b5",
+  "theme_color": "#6272a4",
+  "background_color": "#6272a4",
   "icons": [{
     "src": "../img/icon-192.png",
     "sizes": "192x192",

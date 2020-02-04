@@ -17,65 +17,43 @@
       <link>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</link>
       <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-2/</guid>
-      <description>
-
-&lt;h2 id=&#34;goals&#34;&gt;Goals&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;goals&#34;&gt;Goals&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Make a new home for our role in github&lt;/li&gt;
 &lt;li&gt;Our Docker base images should support systemd&lt;/li&gt;
 &lt;li&gt;Use Molecule to test our role&lt;/li&gt;
 &lt;li&gt;Distribute role with ansible-galaxy&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;Note: if you want to avoid copy-pasting snippets, the project is available in &lt;a href=&#34;https://github.com/coregen/ircstack&#34; target=&#34;_blank&#34;&gt;coregen/ircstack&lt;/a&gt;&lt;/p&gt;
-
+&lt;p&gt;Note: if you want to avoid copy-pasting snippets, the project is available in &lt;a href=&#34;https://github.com/coregen/ircstack&#34;&gt;coregen/ircstack&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible, ansible-galaxy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://git-scm.com/&#34; target=&#34;_blank&#34;&gt;git&lt;/a&gt; - Used for version control&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com&#34; target=&#34;_blank&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/github/hub&#34; target=&#34;_blank&#34;&gt;hub&lt;/a&gt; (It&amp;rsquo;s not required, but there will be some manual actions required if not installed)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/install/&#34; target=&#34;_blank&#34;&gt;Docker&lt;/a&gt; - Will be used by molecule to create containers&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34;&gt;Ansible, ansible-galaxy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://git-scm.com/&#34;&gt;git&lt;/a&gt; - Used for version control&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com&#34;&gt;Github account&lt;/a&gt; - You should have and account&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/github/hub&#34;&gt;hub&lt;/a&gt; (It&amp;rsquo;s not required, but there will be some manual actions required if not installed)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34;&gt;Molecule&lt;/a&gt; - Will be used for testing the ansible role&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/install/&#34;&gt;Docker&lt;/a&gt; - Will be used by molecule to create containers&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;version-control&#34;&gt;Version Control&lt;/h2&gt;
-
-&lt;p&gt;If you haven&amp;rsquo;t heard of this term before, check out &lt;a href=&#34;https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control&#34; target=&#34;_blank&#34;&gt;this article&lt;/a&gt;.&lt;/p&gt;
-
+&lt;p&gt;If you haven&amp;rsquo;t heard of this term before, check out &lt;a href=&#34;https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control&#34;&gt;this article&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We will use Github as a remote for our new repository&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /to/your/role/directory
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;cd /to/your/role/directory
 git init
 git add .
 git commit -m &amp;quot;Initial commit&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now that we have our local repository is set, we can continue with the remote&lt;br/&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now that we have our local repository is set, we can continue with the remote&lt;!-- raw HTML omitted --&gt;.
 The following command will create a Github repository and add it as a remote in our local repository.
 &lt;em&gt;You should be prompted for your user/password after running this command for the first time&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;hub create myircstack  # You can change &amp;quot;myircstack&amp;quot; to your desired repository name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can push our latest commit to our Github remote&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git push origin master
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;docker-and-systemd&#34;&gt;Docker and systemd&lt;/h2&gt;
-
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;hub create myircstack  # You can change &amp;quot;myircstack&amp;quot; to your desired repository name
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we can push our latest commit to our Github remote&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;docker-and-systemd&#34;&gt;Docker and systemd&lt;/h2&gt;
 &lt;p&gt;As some of you might know, Docker is a container engine used by developers to automate application deployment, testing and in some cases is used to deploy applications in production environments. We will use Docker to test our role.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s try using Molecule to build a container and run the role.&lt;br/&gt;
+&lt;p&gt;Let&amp;rsquo;s try using Molecule to build a container and run the role.&lt;!-- raw HTML omitted --&gt;
 In our molecule configuration file, we describe the configuration Molecule will use to create our container. In the last part, we wrote an Ansible task to install weechat on Debian 9, we should change centos:7 to debian:stretch under &lt;strong&gt;platforms&lt;/strong&gt;.&lt;/p&gt;
-
 &lt;p&gt;molecule/default/molecule.yml&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;---
 dependency:
   name: galaxy
 driver:
@@ -93,31 +71,19 @@ verifier:
   name: testinfra
   lint:
     name: flake8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will set our testing containers&amp;rsquo; base image to debian 9.&lt;br/&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This will set our testing containers&amp;rsquo; base image to debian 9.&lt;!-- raw HTML omitted --&gt;
 Time to give Molecule a shot!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;molecule create &amp;amp;&amp;amp; molecule converge
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &amp;ldquo;create&amp;rdquo; command will create our container, and &amp;ldquo;converge&amp;rdquo; will run our role using the playbook &lt;em&gt;molecule/default/playbook.yaml&lt;/em&gt;&lt;br/&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;molecule create &amp;amp;&amp;amp; molecule converge
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &amp;ldquo;create&amp;rdquo; command will create our container, and &amp;ldquo;converge&amp;rdquo; will run our role using the playbook _molecule/default/playbook.yaml_&lt;!-- raw HTML omitted --&gt;
 We can now see the output for both playbooks (One creates the container, the other runs our role).&lt;/p&gt;
-
 &lt;p&gt;Our playbook is expected to fail when we first try activating a systemd service.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    TASK [myircstack : Activate weechat service] ***********************************
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;    TASK [myircstack : Activate weechat service] ***********************************
     fatal: [instance]: FAILED! =&amp;gt; {&amp;quot;changed&amp;quot;: false, &amp;quot;msg&amp;quot;: &amp;quot;Failed to find required executable systemctl in paths: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;quot;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Those of you who are less familiar with Docker will be puzzled, and rightly so. The last time I checked, Debian 9 had systemd installed by default.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Those of you who are less familiar with Docker will be puzzled, and rightly so. The last time I checked, Debian 9 had systemd installed by default.&lt;/p&gt;
 &lt;p&gt;To make Docker and systemd play nice together, we have to do rewrite the playbook that creates the Docker container.
-The following snippet was taken from &lt;a href=&#34;https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule&#34; target=&#34;_blank&#34;&gt;Jeff Geerling&amp;rsquo;s excellent blog post&lt;/a&gt; regarding Ansible and Molecule testing.&lt;/p&gt;
-
+The following snippet was taken from &lt;a href=&#34;https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule&#34;&gt;Jeff Geerling&amp;rsquo;s excellent blog post&lt;/a&gt; regarding Ansible and Molecule testing.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;molecule/default/molecule.yml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;---
 dependency:
   name: galaxy
 driver:
@@ -148,33 +114,24 @@ verifier:
   name: testinfra
   lint:
     name: flake8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In ths snippet we can see that we mount cgroups as read only and run this container in priviliged state, this allows the contrainer to execute systemd.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In ths snippet we can see that we mount cgroups as read only and run this container in priviliged state, this allows the contrainer to execute systemd.
 I have opted to use Jeff&amp;rsquo;s premade Docker containers, as they come with systemd, sysvinit and other goodies already installed.&lt;/p&gt;
-
 &lt;p&gt;In Molecule configuration we can use environment variables with defaults (if specified variable is not available). In the following example, MOLECULE_DISTRO will default to debian9&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;${MOLECULE_DISTRO:-debian9}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In addition to specifying the Docker image, we will expose port 80.&lt;/p&gt;
-
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;${MOLECULE_DISTRO:-debian9}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In addition to specifying the Docker image, we will expose port 80.&lt;/p&gt;
 &lt;p&gt;Now we should be able to create our Docker container and see if our role works&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ molecule create &amp;amp;&amp;amp; molecule converge
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;GlowingBear frontend should be available after Molecule is done, try to connect using our default password (defaultpass).&lt;/p&gt;
-
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;$ molecule create &amp;amp;&amp;amp; molecule converge
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;GlowingBear frontend should be available after Molecule is done, try to connect using our default password (defaultpass).&lt;/p&gt;
 &lt;h3 id=&#34;notes&#34;&gt;Notes:&lt;/h3&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;If you are interested in some background about why systemd is not available in Docker containers by default you can check&lt;/strong&gt; &lt;a href=&#34;https://lwn.net/Articles/676831/&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;this article&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;If you want to know about other Docker images from geerlingguy, here is the latest list&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ docker search geerlingguy | grep -o &amp;quot;^.*docker-.*-ansible&amp;quot;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;If you are interested in some background about why systemd is not available in Docker containers by default you can check&lt;/strong&gt; &lt;a href=&#34;https://lwn.net/Articles/676831/&#34;&gt;&lt;strong&gt;this article&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;If you want to know about other Docker images from geerlingguy, here is the latest list&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;$ docker search geerlingguy | grep -o &amp;quot;^.*docker-.*-ansible&amp;quot;
 geerlingguy/docker-centos7-ansible
 geerlingguy/docker-ubuntu1604-ansible
 geerlingguy/docker-ubuntu1804-ansible
@@ -191,94 +148,68 @@ geerlingguy/docker-centos8-ansible
 geerlingguy/docker-amazonlinux2-ansible
 geerlingguy/docker-fedora30-ansible
 geerlingguy/docker-fedora31-ansible
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;ansible-role-testing-with-github-actions&#34;&gt;Ansible Role Testing with Github Actions&lt;/h2&gt;
-
-&lt;p&gt;We will use Github Actions to run Molecule on push and pull requests. first, we can observe the examples that are given be &lt;a href=&#34;https://molecule.readthedocs.io/en/latest/ci.html&#34; target=&#34;_blank&#34;&gt;Molecule
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;ansible-role-testing-with-github-actions&#34;&gt;Ansible Role Testing with Github Actions&lt;/h2&gt;
+&lt;p&gt;We will use Github Actions to run Molecule on push and pull requests. first, we can observe the examples that are given be &lt;a href=&#34;https://molecule.readthedocs.io/en/latest/ci.html&#34;&gt;Molecule
 in the official documentation&lt;/a&gt; and modify the example to suit our needs&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;.github/workflows/test_role.yml&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Test my role with molecule
+&lt;span style=&#34;color:#66d9ef&#34;&gt;on&lt;/span&gt;: [push, pull_request]  &lt;span style=&#34;color:#75715e&#34;&gt;# Triggers for starting a test run&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;jobs&lt;/span&gt;:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;build&lt;/span&gt;:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;runs-on&lt;/span&gt;: ubuntu-latest  &lt;span style=&#34;color:#75715e&#34;&gt;# The linux distribution this task will run on&lt;/span&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
-name: Test my role with molecule
-on: [push, pull_request]  # Triggers for starting a test run
-jobs:
-  build:
-    runs-on: ubuntu-latest  # The linux distribution this task will run on
-
-    strategy:
-      matrix:
-        image:
-          - debian9  # The distro we will use inside docker to test our role, see below in MOLECULE_DISTRO
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: |
-          sudo apt install docker git
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;strategy&lt;/span&gt;:
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;matrix&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;image&lt;/span&gt;:
+          - debian9  &lt;span style=&#34;color:#75715e&#34;&gt;# The distro we will use inside docker to test our role, see below in MOLECULE_DISTRO&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;steps&lt;/span&gt;:
+      - &lt;span style=&#34;color:#66d9ef&#34;&gt;uses&lt;/span&gt;: actions/checkout@v2
+      - &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Set up Python &lt;span style=&#34;color:#ae81ff&#34;&gt;3.7&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;uses&lt;/span&gt;: actions/setup-python@v1
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt;:
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;python-version&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;3.7&lt;/span&gt;
+      - &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Install dependencies
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;run&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;|
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;         &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;sudo apt install docker git&lt;/span&gt;
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: &amp;quot;Test role&amp;quot;
-        run: |
-          molecule test
-        env:
-          MOLECULE_DISTRO: &amp;quot;${{ matrix.image }}&amp;quot;  # Used in molecule/default/molecule.yml to detemine the distro the role will be tested against
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now Github Actions should test the role against Debian 9.&lt;/p&gt;
-
+      - &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Test role&amp;#34;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;run&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;|
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;         &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;molecule test&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;env&lt;/span&gt;:
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;MOLECULE_DISTRO&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;${{ matrix.image }}&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# Used in molecule/default/molecule.yml to detemine the distro the role will be tested against&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now Github Actions should test the role against Debian 9.&lt;/p&gt;
 &lt;p&gt;Add a &lt;em&gt;requirements.txt&lt;/em&gt; file to our repository to make sure all python dependencies are installed.&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;requirements.txt&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ansible==2.9.2
-molecule[docker]==2.22
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;ansible-galaxy&#34;&gt;Ansible Galaxy&lt;/h2&gt;
-
-&lt;p&gt;Now that we know our role works, we can share it with others.&lt;br/&gt;
-Register to &lt;a href=&#34;https://galaxy.ansible.com&#34; target=&#34;_blank&#34;&gt;Ansible-Galaxy&lt;/a&gt; with your github account and login via cli&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ansible-galaxy login  # you will be prompted for you github user and password
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;2.9.2
+molecule&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;docker&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;2.22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;ansible-galaxy&#34;&gt;Ansible Galaxy&lt;/h2&gt;
+&lt;p&gt;Now that we know our role works, we can share it with others.&lt;!-- raw HTML omitted --&gt;
+Register to &lt;a href=&#34;https://galaxy.ansible.com&#34;&gt;Ansible-Galaxy&lt;/a&gt; with your github account and login via cli&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;ansible-galaxy login  # you will be prompted for you github user and password
 ansible-galaxy import --branch &amp;lt;branch_to_import&amp;gt; &amp;lt;github_user&amp;gt; &amp;lt;github_repo_name&amp;gt; -vvv  # will import your role to galaxy, repository should be public
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Your role should now be available on ansible-galaxy, lets try installing it&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ansible-galaxy install &amp;lt;github_username&amp;gt;.&amp;lt;name_of_the_role_in_meta&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ansible-galaxy install myuser.myrole
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Your role should now be available on ansible-galaxy, lets try installing it&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;ansible-galaxy install &amp;lt;github_username&amp;gt;.&amp;lt;name_of_the_role_in_meta&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;$ ansible-galaxy install myuser.myrole
 - downloading role &#39;myrole&#39;, owned by myuser
 - downloading role from https://github.com/myuser/myrepo/archive/mybranch.tar.gz
 - extracting myuser.myrole to /path/th/.ansible/roles/myuser.myrole
 - myuser.myrole (mybranch) was installed successfully
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;As you can see, there are several different applications involved in testing and distributing out role,
 We should not be overwhelemed by the amount of information required of us, reading the official documentation of each application/service
 will help us understand the overll flow.
 Following are the informational blog posts and docs that I used when writing this post
 &lt;strong&gt;If you encounter errors, feel free to leave a comment&lt;/strong&gt;&lt;/p&gt;
-
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://help.github.com/en/actions&#34; target=&#34;_blank&#34;&gt;Github Actions Documentation&lt;/a&gt;
-&lt;a href=&#34;https://github.com/actions/toolkit/blob/master/docs/action-debugging.md&#34; target=&#34;_blank&#34;&gt;Github Actions Debugging guide&lt;/a&gt;
-&lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/cli/&#34; target=&#34;_blank&#34;&gt;Docker CLI Docs&lt;/a&gt;
-&lt;a href=&#34;https://galaxy.ansible.com/docs/contributing/importing.html&#34; target=&#34;_blank&#34;&gt;Ansible-Galaxy - Importing content&lt;/a&gt;
-&lt;a href=&#34;https://lwn.net/Articles/676831/&#34; target=&#34;_blank&#34;&gt;Jeff Geerling&amp;rsquo;s post about ansible role testing&lt;/a&gt;
-&lt;a href=&#34;https://hub.github.com/hub.1.html&#34; target=&#34;_blank&#34;&gt;Hub documentation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://help.github.com/en/actions&#34;&gt;Github Actions Documentation&lt;/a&gt;
+&lt;a href=&#34;https://github.com/actions/toolkit/blob/master/docs/action-debugging.md&#34;&gt;Github Actions Debugging guide&lt;/a&gt;
+&lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/cli/&#34;&gt;Docker CLI Docs&lt;/a&gt;
+&lt;a href=&#34;https://galaxy.ansible.com/docs/contributing/importing.html&#34;&gt;Ansible-Galaxy - Importing content&lt;/a&gt;
+&lt;a href=&#34;https://lwn.net/Articles/676831/&#34;&gt;Jeff Geerling&amp;rsquo;s post about ansible role testing&lt;/a&gt;
+&lt;a href=&#34;https://hub.github.com/hub.1.html&#34;&gt;Hub documentation&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -287,54 +218,35 @@ Following are the informational blog posts and docs that I used when writing thi
       <link>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
       <guid>https://blog.coregen.io/post/weechat-ansible-aws-part-1/</guid>
-      <description>
-
-&lt;p&gt;&lt;span style=&#34;color:#778899&#34;&gt;Update: theres no need to copy/paste text, &lt;a href=&#34;https://github.com/coregen/ansible-ircstack&#34; target=&#34;_blank&#34;&gt;follow this link&lt;/a&gt; to view the role. Due to it being in active development some variable names and tasks will differ slightly&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34; target=&#34;_blank&#34;&gt;GlowingBear&lt;/a&gt; on &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt; to expose a web frontend to &lt;a href=&#34;https://weechat.org/&#34; target=&#34;_blank&#34;&gt;Weechat&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Using weechat this way led me to deploying this IRC &amp;ldquo;stack&amp;rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS).&lt;br/&gt;
-After deploying weechat and &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt; manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process.&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Update: theres no need to copy/paste text, &lt;a href=&#34;https://github.com/coregen/ansible-ircstack&#34;&gt;follow this link&lt;/a&gt; to view the role. Due to it being in active development some variable names and tasks will differ slightly&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;During my first year in high-tech my go-to place for asking Programming and Linux related questions was the IRC. For ease of use and portability I started using &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34;&gt;GlowingBear&lt;/a&gt; on &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34;&gt;Nginx&lt;/a&gt; to expose a web frontend to &lt;a href=&#34;https://weechat.org/&#34;&gt;Weechat&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Using weechat this way led me to deploying this IRC &amp;ldquo;stack&amp;rdquo; on AWS which gives free t2.micro time quota for Free Tier users (first 12 months after signing up to AWS).&lt;!-- raw HTML omitted --&gt;
+After deploying weechat and &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34;&gt;Nginx&lt;/a&gt; manually (Including LetsEncrypt SSL certificates) I decided to find some way to automate this process.&lt;/p&gt;
 &lt;p&gt;The purpose of this article is to give an overview of creating, testing and deploying Ansible configurations, using weechat as an example.&lt;/p&gt;
-
 &lt;h2 id=&#34;goals&#34;&gt;Goals&lt;/h2&gt;
-
 &lt;p&gt;Our goals are as following:&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;An Ansible role that will deploy &lt;a href=&#34;https://weechat.org/&#34; target=&#34;_blank&#34;&gt;Weechat&lt;/a&gt;, &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt; and &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34; target=&#34;_blank&#34;&gt;GlowingBear&lt;/a&gt; to a specific linux user&lt;/li&gt;
+&lt;li&gt;An Ansible role that will deploy &lt;a href=&#34;https://weechat.org/&#34;&gt;Weechat&lt;/a&gt;, &lt;a href=&#34;https://www.nginx.com/resources/glossary/nginx/&#34;&gt;Nginx&lt;/a&gt; and &lt;a href=&#34;https://www.glowing-bear.org/#!/&#34;&gt;GlowingBear&lt;/a&gt; to a specific linux user&lt;/li&gt;
 &lt;li&gt;We should be able to use this role without disturbing other software running on the server&lt;/li&gt;
 &lt;li&gt;This role should be automatically tested using a CI system against 3 different distributions&lt;/li&gt;
-&lt;li&gt;We will write &lt;a href=&#34;https://www.terraform.io/intro/index.html&#34; target=&#34;_blank&#34;&gt;Terraform&lt;/a&gt; plans to use this role in conjunction with other roles on a t2.micro instance on AWS&lt;/li&gt;
+&lt;li&gt;We will write &lt;a href=&#34;https://www.terraform.io/intro/index.html&#34;&gt;Terraform&lt;/a&gt; plans to use this role in conjunction with other roles on a t2.micro instance on AWS&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;This article will be split into 3-4 parts. This first part will be dealing with creating the Ansible role.&lt;/p&gt;
-
-&lt;p&gt;Note: if you want to avoid copy-pasting snippets, the project is available in &lt;a href=&#34;https://github.com/coregen/ircstack&#34; target=&#34;_blank&#34;&gt;coregen/ircstack&lt;/a&gt;&lt;/p&gt;
-
+&lt;p&gt;Note: if you want to avoid copy-pasting snippets, the project is available in &lt;a href=&#34;https://github.com/coregen/ircstack&#34;&gt;coregen/ircstack&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
-
 &lt;p&gt;The first part will require the following to be available&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;You should be running Linux or MacOS&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34; target=&#34;_blank&#34;&gt;Ansible &amp;gt;= 2.8.5&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34; target=&#34;_blank&#34;&gt;Molecule &amp;gt;= 2.22&lt;/a&gt; - Will be used for testing the Ansible role&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html&#34;&gt;Ansible &amp;gt;= 2.8.5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://molecule.readthedocs.io/en/stable/installation.html&#34;&gt;Molecule &amp;gt;= 2.22&lt;/a&gt; - Will be used for testing the Ansible role&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;creating-the-role&#34;&gt;Creating the role&lt;/h2&gt;
-
 &lt;p&gt;First, we will create an Ansible role using Molecule&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ansible-galaxy init myircstack
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;$ ansible-galaxy init myircstack
 $ cd myircstack/
 $ molecule init role -r myircstack
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will create the role in the directory you are currently at.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;○ → tree
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This will create the role in the directory you are currently at.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-{bash}&#34; data-lang=&#34;{bash}&#34;&gt;○ → tree
 .
 ├── README.md
 ├── defaults
@@ -357,21 +269,13 @@ $ molecule init role -r myircstack
     └── main.yml
 
     8 directories, 11 files
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The initial file structure will include a &lt;strong&gt;Molecule&lt;/strong&gt; directory which Molecule will use to create docker containers to test the role we write. we will be editing the files there soon.&lt;/p&gt;
-
-&lt;p&gt;For Ansible to install weechat-headless, which will allow us to run Weechat as a &lt;a href=&#34;https://en.wikipedia.org/wiki/Daemon_(computing)&#34; target=&#34;_blank&#34;&gt;daemon&lt;/a&gt;, we need to  make sure we are installing the latest Weechat version that supports it (minimum 2.1). we will use debian for our host.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The initial file structure will include a &lt;strong&gt;Molecule&lt;/strong&gt; directory which Molecule will use to create docker containers to test the role we write. we will be editing the files there soon.&lt;/p&gt;
+&lt;p&gt;For Ansible to install weechat-headless, which will allow us to run Weechat as a &lt;a href=&#34;https://en.wikipedia.org/wiki/Daemon_(computing)&#34;&gt;daemon&lt;/a&gt;, we need to  make sure we are installing the latest Weechat version that supports it (minimum 2.1). we will use debian for our host.&lt;/p&gt;
 &lt;h2 id=&#34;package-installation&#34;&gt;Package Installation&lt;/h2&gt;
-
-&lt;p&gt;Following the &lt;a href=&#34;https://weechat.org/download/debian/&#34; target=&#34;_blank&#34;&gt;Weechat installationg instructions&lt;/a&gt; for debian, we can start writing our playbook.&lt;/p&gt;
-
+&lt;p&gt;Following the &lt;a href=&#34;https://weechat.org/download/debian/&#34;&gt;Weechat installationg instructions&lt;/a&gt; for debian, we can start writing our playbook.&lt;/p&gt;
 &lt;p&gt;Inside &lt;em&gt;tasks/&lt;/em&gt; we should create the file:&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;tasks/setup-debian9.yml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 - name: Update and install debian packages
   apt:
     update_cache: true  # will update the local debian apt repositories
@@ -408,23 +312,15 @@ $ molecule init role -r myircstack
       - weechat-python
       - weechat-perl
       - weechat-headless
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This task is specific to debian 9 (stretch) and will be tested as such, it&amp;rsquo;s also worth noting that
-we are adding an external repository (&lt;a href=&#34;https://weechat.org/debian&#34; target=&#34;_blank&#34;&gt;https://weechat.org/debian&lt;/a&gt;).&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This task is specific to debian 9 (stretch) and will be tested as such, it&amp;rsquo;s also worth noting that
+we are adding an external repository (&lt;a href=&#34;https://weechat.org/debian)&#34;&gt;https://weechat.org/debian)&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This means that in addition to depending on debian repositories we are depending on a private Weechat repository which is not ideal. We will addres this in the next chapters.&lt;/p&gt;
-
 &lt;h2 id=&#34;system-configuration&#34;&gt;System Configuration&lt;/h2&gt;
-
 &lt;p&gt;For weechat-headless to run successfuly (and hopefully in a way that doesnt create vulnerabilities) we are going to configure the
 linux environment. There are many ways to do this, some more secure than others.&lt;/p&gt;
-
 &lt;p&gt;We will begin with generic configurations. First, lets create some variables:&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;vars/main.yaml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 weechat_username: &amp;quot;weechat&amp;quot;
 weechat_home: &amp;quot;/home/{{ weechat_username }}&amp;quot;
 weechat_config_dir: &amp;quot;{{ weechat_home }}/.weechat&amp;quot;
@@ -438,13 +334,9 @@ nginx_server_url: &amp;quot;localhost&amp;quot;
 nginx_server_ssl_cert_dir: &amp;quot;/var/creds&amp;quot;
 glowingbear_path: /var/www/glowingbear
 nginx_with_reverse_proxy: true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;These variables allow us some flexability when writing our playbook, including using relay ssl cert and custom linux username&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;These variables allow us some flexability when writing our playbook, including using relay ssl cert and custom linux username&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;tasks/environment.yaml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 - name: Create weechat user
   user:
     name: &amp;quot;{{ weechat_username }}&amp;quot;
@@ -479,20 +371,13 @@ nginx_with_reverse_proxy: true
     mode: &#39;0700&#39;
     owner: &amp;quot;{{ weechat_username }}&amp;quot;
 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;templates&#34;&gt;Templates&lt;/h2&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;templates&#34;&gt;Templates&lt;/h2&gt;
 &lt;p&gt;At this step will create 3 templates, for nginx, Weechat relay, and the Weechat service.&lt;/p&gt;
-
 &lt;p&gt;Lets start with the service:&lt;/p&gt;
-
 &lt;p&gt;As you can see, I have decided to use the Weechat user to run this service, this decision
-was made primarily due to the fact that Weechat by default allows command executions via /exec, and running this process as root is just &lt;a href=&#34;https://weechat.org/files/doc/devel/weechat_user.en.html#exec_plugin&#34; target=&#34;_blank&#34;&gt;asking for it&lt;/a&gt;&amp;hellip;&lt;/p&gt;
-
+was made primarily due to the fact that Weechat by default allows command executions via /exec, and running this process as root is just &lt;a href=&#34;https://weechat.org/files/doc/devel/weechat_user.en.html#exec_plugin&#34;&gt;asking for it&lt;/a&gt;&amp;hellip;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;templates/weechat.service.j2&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-service&#34;&gt;[Unit]
+&lt;pre&gt;&lt;code class=&#34;language-{service}&#34; data-lang=&#34;{service}&#34;&gt;[Unit]
 Description=A headless WeeChat client and relay service 
 After=network.target
 
@@ -503,16 +388,11 @@ User={{ weechat_username }}
 
 [Install]
 WantedBy=default.target
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I have opted to inserting the password directly into the template, there are several other options
-including &lt;a href=&#34;https://github.com/weechat/weechat/issues/388&#34; target=&#34;_blank&#34;&gt;using environment variables&lt;/a&gt;&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I have opted to inserting the password directly into the template, there are several other options
+including &lt;a href=&#34;https://github.com/weechat/weechat/issues/388&#34;&gt;using environment variables&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;It&amp;rsquo;s possible to add the environment variables inside a file and adding &lt;em&gt;EnvironmentFile=/path/to/file&lt;/em&gt; under Service in the systemd unit file&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;templates/relay.conf.j2&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cfg&#34;&gt;[look]
+&lt;pre&gt;&lt;code class=&#34;language-{cfg}&#34; data-lang=&#34;{cfg}&#34;&gt;[look]
 auto_open_buffer = on
 raw_messages = 256
 
@@ -558,20 +438,14 @@ ipv4.ipv6.weechat = 9001
 
 [path]
 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There are two things to note about the the Nginx config&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;There are two things to note about the the Nginx config&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;We are not using SSL to secure the server (The plan is to use AWS Cloudfront)&lt;/strong&gt;&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;We added GlowingBear to the nginx server root. (It&amp;rsquo;s a &lt;a href=&#34;https://github.com/glowing-bear/glowing-bear&#34; target=&#34;_blank&#34;&gt;Weechat frontend&lt;/a&gt;)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;__We are not using SSL to secure the server (The plan is to use AWS Cloudfront)__&lt;!-- raw HTML omitted --&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We added GlowingBear to the nginx server root. (It&amp;rsquo;s a &lt;a href=&#34;https://github.com/glowing-bear/glowing-bear&#34;&gt;Weechat frontend&lt;/a&gt;)&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;More about this in later chapters&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;templates/glowingbear.j2&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;map $http_upgrade $connection_upgrade {
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;map $http_upgrade $connection_upgrade {
     default upgrade;
     &#39;&#39; close;
 }
@@ -600,17 +474,12 @@ server {
     root {{ glowingbear_path }};
   }
 }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;At this point we have everything we need as far as directory creation goes.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;At this point we have everything we need as far as directory creation goes.&lt;/p&gt;
 &lt;p&gt;Now we create the SSL certificate that will be used by the Weechat Relay.
 Weechat requires we concatenate both certificates and put the concatenated files&amp;rsquo; contents (cert before key)
 in relay.conf.&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;tasks/weechat.yaml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 - name: Create weechat key
   shell: &amp;gt;
     openssl req -x509 -nodes -newkey rsa:4096 -sha256 -keyout {{ weechat_relay_key }}
@@ -641,15 +510,10 @@ in relay.conf.&lt;/p&gt;
     name: weechat
     enabled: true
     state: started
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;frontend&#34;&gt;Frontend&lt;/h2&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;frontend&#34;&gt;Frontend&lt;/h2&gt;
 &lt;p&gt;Before enabling and starting Nginx clone GlowingBear and make sure the Nginx site configuration is templated and linked.&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;tasks/glowingbear.yml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 - name: Download glowing bear
   git:
     repo: &#39;https://github.com/glowing-bear/glowing-bear.git&#39;
@@ -668,33 +532,22 @@ in relay.conf.&lt;/p&gt;
     src: /etc/nginx/sites-available/glowingbear
     dest: /etc/nginx/sites-enabled/default
     state: link
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;nginx-configuration&#34;&gt;Nginx Configuration&lt;/h2&gt;
-
-&lt;p&gt;Here we simply enable and start the Nginx service&lt;br/&gt;&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;nginx-configuration&#34;&gt;Nginx Configuration&lt;/h2&gt;
+&lt;p&gt;Here we simply enable and start the Nginx service&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;tasks/nginx.yml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 - name: Activate nginx service
   systemd:
     name: nginx
     enabled: true
     state: started
 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;weechat-configuration&#34;&gt;Weechat configuration&lt;/h2&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;weechat-configuration&#34;&gt;Weechat configuration&lt;/h2&gt;
 &lt;h2 id=&#34;finalizing-tasks&#34;&gt;Finalizing Tasks&lt;/h2&gt;
-
-&lt;p&gt;To bring all the configuration together, we use the main.yml file that will be read and processed by Ansible during playbook execution.&lt;br/&gt;
+&lt;p&gt;To bring all the configuration together, we use the main.yml file that will be read and processed by Ansible during playbook execution.&lt;!-- raw HTML omitted --&gt;
 Notice that we are passing a conditional that will execute package installation only if we are using Debian 9. More distribution can be supported by adding tasks corresponding to their name/version.&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;tasks/main.yml&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+&lt;pre&gt;&lt;code class=&#34;language-{yaml}&#34; data-lang=&#34;{yaml}&#34;&gt;---
 - include_tasks: setup-debian9.yml
   when: ansible_os_family == &#39;Debian&#39; and ansible_distribution_version == &#39;9&#39;
 
@@ -708,14 +561,9 @@ Notice that we are passing a conditional that will execute package installation 
 - include_tasks: nginx.yml
   when: nginx_with_reverse_proxy
 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;role-metadata&#34;&gt;Role Metadata&lt;/h2&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;role-metadata&#34;&gt;Role Metadata&lt;/h2&gt;
 &lt;p&gt;Metadata should be added to provide more information about the role, it&amp;rsquo;s author, role name, license and supported platforms&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;meta/main.yaml&lt;/em&gt;&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;galaxy_info:
   author: Barak Avrahami
   description: This role is used to install Weechat, and use it with nginx to serve GlowingBear
@@ -734,19 +582,12 @@ Notice that we are passing a conditional that will execute package installation 
   galaxy_tags: [irc, weechat, nginx, glowingbear]
 
 dependencies: []
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Now that we have a role that installs and configures Weechat, Nginx and GlowingBear you might be asking &lt;em&gt;&amp;ldquo;oh, well thats excellent, but how do I know it works?&amp;rdquo;&lt;/em&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Now that we have a role that installs and configures Weechat, Nginx and GlowingBear you might be asking &lt;em&gt;&amp;ldquo;oh, well thats excellent, but how do I know it works?&amp;quot;&lt;/em&gt;
 Well.. you can add it to a playbook and execute this role, it will &lt;del&gt;probably&lt;/del&gt; hopefully work. But testing this role will make changing anything considerably easier.&lt;/p&gt;
-
 &lt;p&gt;&lt;strong&gt;I tested this code and it does work on Debian Stretch&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://blog.coregen.io/img/simpsons-testing.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
+&lt;p&gt;&lt;img src=&#34;https://blog.coregen.io/img/simpsons-testing.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Stay tuned for the the next part, in which we will configure Molecule and Docker to test this role on different systems&lt;/p&gt;
-
 &lt;p&gt;I hope you enjoyed this article, leave a comment if you feel like I missed something or just to say Hi!&lt;/p&gt;
 </description>
     </item>

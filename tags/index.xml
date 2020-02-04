@@ -68,5 +68,29 @@
       <description></description>
     </item>
     
+    <item>
+      <title>bson</title>
+      <link>https://blog.coregen.io/tags/bson/</link>
+      <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
+      <guid>https://blog.coregen.io/tags/bson/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://blog.coregen.io/tags/python/</link>
+      <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
+      <guid>https://blog.coregen.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://blog.coregen.io/tags/tools/</link>
+      <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
+      <guid>https://blog.coregen.io/tags/tools/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

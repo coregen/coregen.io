@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tools | Coregen.io</title>
+    <link>https://blog.coregen.io/tags/tools/</link>
+      <atom:link href="https://blog.coregen.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <description>tools</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 26 Nov 2019 16:18:58 +0200</lastBuildDate>
+    <image>
+      <url>https://blog.coregen.io/img/icon-192.png</url>
+      <title>tools</title>
+      <link>https://blog.coregen.io/tags/tools/</link>
+    </image>
+    
+    <item>
+      <title>Coregen</title>
+      <link>https://blog.coregen.io/project/coregen/</link>
+      <pubDate>Tue, 26 Nov 2019 16:18:58 +0200</pubDate>
+      <guid>https://blog.coregen.io/project/coregen/</guid>
+      <description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Star&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
